@@ -1,0 +1,254 @@
+/* ==================================================================
+   Meridian — policy pages
+   Same palette and typography as the main site.
+   ================================================================== */
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --text: #f0f0f5;
+  --text-muted: #8888a8;
+  --accent: #c8a0e0;
+  --accent-pink: #b04090;
+  --border: rgba(255, 255, 255, 0.08);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- header ---------- */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  max-width: 1600px;
+  padding: 12px 24px;
+  margin-bottom: 14px;
+}
+
+.topbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.topbar .logo svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 0.12);
+  text-decoration: none;
+}
+
+/* ---------- shell ---------- */
+
+.shell {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 20px;
+  background: #0d0b12;
+  padding: 64px 40px;
+  overflow: hidden;
+}
+
+.shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 220px at 50% -60px, rgba(176, 48, 136, 0.16), transparent 70%);
+}
+
+.inner {
+  position: relative;
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+h1 strong {
+  display: block;
+  font-weight: 400;
+  margin-top: 3px;
+  background: linear-gradient(to right, #ffffff, #a98597);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.updated {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* ---------- jump nav ---------- */
+
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 34px 0 10px;
+}
+
+.jump a {
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+}
+
+.jump a:hover {
+  background: rgba(255, 255, 255, 0.09);
+  text-decoration: none;
+}
+
+/* ---------- document ---------- */
+
+.doc {
+  margin-top: 44px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 20px;
+}
+
+.doc h2 {
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  margin-bottom: 8px;
+}
+
+.doc h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  margin: 26px 0 8px;
+}
+
+.doc p,
+.doc li {
+  font-size: 0.87rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+
+.doc p {
+  margin: 10px 0;
+}
+
+.doc ul {
+  margin: 10px 0;
+  padding-left: 20px;
+}
+
+.doc li {
+  padding: 3px 0;
+}
+
+.doc strong {
+  color: rgba(255, 255, 255, 0.82);
+  font-weight: 500;
+}
+
+/* ---------- footer ---------- */
+
+.foot {
+  width: 100%;
+  max-width: 1600px;
+  margin-top: 38px;
+  padding: 26px 24px 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.foot a {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 768px) {
+  .shell {
+    padding: 44px 20px;
+    border-radius: 16px;
+  }
+
+  .topbar {
+    padding: 12px 8px;
+  }
+
+  .foot {
+    padding: 22px 8px 4px;
+  }
+}
