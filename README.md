@@ -107,40 +107,44 @@ instead of shipping.
 **Step 1 — burner GitHub account.** Not your personal one. The site is public
 and permanently tied to whatever account publishes it.
 
-**Step 2 — create a public repo** named `meridian` (the repo name becomes part
-of the URL).
+**Step 2 — public repo.** Done: `meridianProxy/meridianProxy.github.io`.
 
-**Step 3 — push this folder:**
+The name is deliberate. `meridianProxy.github.io` is a *user site* repo, so it
+serves at the bare root with no subpath:
+
+```
+https://meridianproxy.github.io/
+```
+
+**Step 3 — push.** Done. From a fresh clone it is only:
 
 ```bash
-git init
-git add .
-git commit -m "Meridian site"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/meridian.git
+git remote add origin https://github.com/meridianProxy/meridianProxy.github.io.git
 git push -u origin main
 ```
 
-Set a burner identity first so your real name is not in the commit history:
+Commits use a GitHub noreply identity, so no personal email sits in the history:
 
 ```bash
-git config user.name "Meridian"
-git config user.email "desk@your-domain.com"
+git config user.name "meridianProxy"
+git config user.email "328706122+meridianProxy@users.noreply.github.com"
 ```
 
-**Step 4 — turn on Pages.** In the repo: **Settings → Pages → Build and
-deployment**, set **Source** to `GitHub Actions`. That's it — the included
-workflow at `.github/workflows/deploy.yml` builds the site and publishes it on
-every push to `main`.
+The numeric prefix is the account id. GitHub needs it for recently created
+accounts to link commits to the profile — without it the commit still pushes
+but shows up unattributed.
 
-**Step 5 — wait for the action to finish** (Actions tab, about a minute) and
-open:
+**Step 4 — Pages source.** Already set to `GitHub Actions`, and the included
+workflow at `.github/workflows/deploy.yml` rebuilds and republishes on every
+push to `main`.
+
+**Step 5 — live:**
 
 ```
-https://YOUR-USERNAME.github.io/meridian/
+https://meridianproxy.github.io/
 ```
 
-HTTPS is automatic.
+HTTPS is automatic, and a deploy takes about a minute.
 
 ### Alternative: no Actions
 
@@ -158,7 +162,7 @@ minute. Nothing to run locally.
 
 ## Custom domain (optional, ~$10/year)
 
-`your-name.github.io/meridian` looks like a hobby project. A real domain makes
+`meridianproxy.github.io` looks like a hobby project. A real domain makes
 it look like a company.
 
 1. Buy it with WHOIS privacy on (Namecheap, Porkbun, Cloudflare).
@@ -194,16 +198,23 @@ expose the other.
 
 ---
 
-## Checklist before going live
+## Checklist
+
+Verified in the deploy that published this site:
 
 ```
-[ ] TELEGRAM constant set in src/App.tsx
+[x] burner GitHub account, burner git identity
+[x] repo public, Pages source = GitHub Actions
+[x] action finished green, site loads over HTTPS
+[x] policy page loads and all four anchors work (terms, privacy, refunds, aup)
+```
+
+Still yours to confirm — none of these are checkable from the build:
+
+```
+[ ] Telegram handle is really yours: src/App.tsx points at t.me/QuotaPingBot
 [ ] prices read through — they match what you actually charge
-[ ] burner GitHub account, burner git identity
-[ ] repo public, Pages source = GitHub Actions
-[ ] action finished green, site loads over HTTPS
 [ ] all buttons open a chat with you
-[ ] policy page loads and all four anchors work
 [ ] checked on a phone (hero, pricing, FAQ, menu)
 [ ] custom domain added, Enforce HTTPS ticked
 ```
