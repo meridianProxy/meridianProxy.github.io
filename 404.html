@@ -3,51 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="referrer" content="no-referrer">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Not found — Meridian</title>
+<meta name="description" content="">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#07080c">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="legal.css">
 </head>
 <body>
 
-<nav class="nav">
+<header class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="index.html" aria-label="Meridian home">
-      <svg viewBox="0 0 64 64" aria-hidden="true">
-        <defs>
-          <linearGradient id="ng" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#31d0ff"/>
-          </linearGradient>
-        </defs>
-        <circle cx="32" cy="32" r="26" fill="none" stroke="url(#ng)" stroke-width="4"/>
-        <ellipse cx="32" cy="32" rx="11" ry="26" fill="none" stroke="url(#ng)" stroke-width="3"/>
-        <path d="M7 32h50" stroke="url(#ng)" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="32" cy="32" r="4.5" fill="#31d0ff"/>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.5"/>
+        <ellipse cx="12" cy="12" rx="4.1" ry="9.2" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M2.8 12h18.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="1.9" fill="#a78bfa"/>
       </svg>
       <span>Meridian <em>/ proxy</em></span>
     </a>
-    <div class="nav-links">
-      <a class="btn btn-primary btn-sm" href="https://t.me/QuotaPingBot">Get access</a>
-    </div>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="index.html#faq">FAQ</a>
+      <a class="btn" href="https://t.me/QuotaPingBot">Get access</a>
+    </nav>
   </div>
-</nav>
+</header>
 
-<main class="wrap">
-  <article class="legal">
-    <h1>Page not found</h1>
-    <p class="updated">That link doesn't lead anywhere.</p>
-    <p><a href="index.html">Back to the main page</a></p>
-  </article>
+<main>
+  <div class="wrap">
+    <div class="masthead">
+      <span class="eb">Not found</span>
+      <h1>Page not found</h1>
+      <p class="updated">That link doesn't lead anywhere.</p>
+    </div>
+
+    <article class="legal">
+      <p><a href="index.html">Back to the main page</a></p>
+    </article>
+  </div>
 </main>
 
 <footer>
   <div class="wrap">
     <div class="foot-bottom">
-      <span>© <span id="yr">2026</span> Meridian.</span>
+      <span>© <span id="yr">2026</span> Meridian<span class="build">2026-09-17 21:12</span></span>
+      <span>
+        <a href="index.html">Home</a><span class="dot">·</span>
+        <a href="terms.html">Terms</a><span class="dot">·</span>
+        <a href="privacy.html">Privacy</a><span class="dot">·</span>
+        <a href="refund.html">Refunds</a><span class="dot">·</span>
+        <a href="aup.html">Acceptable use</a>
+      </span>
     </div>
   </div>
 </footer>
+
 </body>
 </html>

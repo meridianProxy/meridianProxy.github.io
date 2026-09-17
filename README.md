@@ -18,8 +18,9 @@ is the whole deploy.
 | `tor.html` | Script-free build served to Tor and JS-disabled visitors |
 | `terms.html` `privacy.html` `refund.html` `aup.html` | Policy pages |
 | `404.html` | Not-found page |
-| `styles.css` | Shared stylesheet for the policy pages |
+| `legal.css` | Stylesheet for the policy pages; self-hosted font, no external request |
 | `assets/logo.svg` | Favicon |
+| `assets/fonts/` | Plus Jakarta Sans, self-hosted so no font host is contacted |
 
 ## Editing
 

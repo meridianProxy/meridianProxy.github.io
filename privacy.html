@@ -3,95 +3,105 @@
 <head>
 <meta charset="utf-8">
 <meta name="referrer" content="no-referrer">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Privacy Policy — Meridian</title>
 <meta name="description" content="What Meridian records, why, and for how long.">
-<meta name="theme-color" content="#07080c">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index, follow">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="legal.css">
 </head>
 <body>
 
-<nav class="nav">
+<header class="nav">
   <div class="wrap nav-inner">
     <a class="brand" href="index.html" aria-label="Meridian home">
-      <svg viewBox="0 0 64 64" aria-hidden="true">
-        <defs>
-          <linearGradient id="ng" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-            <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#31d0ff"/>
-          </linearGradient>
-        </defs>
-        <circle cx="32" cy="32" r="26" fill="none" stroke="url(#ng)" stroke-width="4"/>
-        <ellipse cx="32" cy="32" rx="11" ry="26" fill="none" stroke="url(#ng)" stroke-width="3"/>
-        <path d="M7 32h50" stroke="url(#ng)" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="32" cy="32" r="4.5" fill="#31d0ff"/>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.5"/>
+        <ellipse cx="12" cy="12" rx="4.1" ry="9.2" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M2.8 12h18.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="1.9" fill="#a78bfa"/>
       </svg>
       <span>Meridian <em>/ proxy</em></span>
     </a>
-    <div class="nav-links">
+    <nav class="nav-links" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="index.html#pricing">Pricing</a>
-      <a class="btn btn-primary btn-sm" href="https://t.me/QuotaPingBot">Get access</a>
-    </div>
+      <a href="index.html#faq">FAQ</a>
+      <a class="btn" href="https://t.me/QuotaPingBot">Get access</a>
+    </nav>
   </div>
-</nav>
+</header>
 
-<main class="wrap">
-  <article class="legal">
-    <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: January 2026</p>
+<main>
+  <div class="wrap">
+    <div class="masthead">
+      <span class="eb">Legal</span>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: January 2026</p>
+    </div>
 
-    <p>This policy explains what Meridian records when you use the Service, why we record it, and how long we keep it. It is deliberately short, because we collect as little as a working proxy network can.</p>
+    <article class="legal">
+      <p>This policy explains what Meridian records when you use the Service, why we record it, and how long we keep it. It is deliberately short, because we collect as little as a working proxy network can.</p>
 
-    <h2>1. What we collect</h2>
-    <ul>
-      <li><strong>Account data</strong> — the identifier you choose, a salted hash of your password, your balance and your usage counters.</li>
-      <li><strong>Connection metadata</strong> — timestamps, bytes transferred in each direction, and the exit assigned to a connection. This is what billing and abuse prevention run on.</li>
-      <li><strong>Service messages</strong> — if you contact us through our Telegram channel, that conversation exists in Telegram's systems as well as ours.</li>
-    </ul>
+      <h2>1. What we collect</h2>
+      <ul>
+        <li><strong>Account data</strong> — the identifier you choose, a salted hash of your password, your balance and your usage counters.</li>
+        <li><strong>Connection metadata</strong> — timestamps, bytes transferred in each direction, and the exit assigned to a connection. This is what billing and abuse prevention run on.</li>
+        <li><strong>Service messages</strong> — if you contact us through our Telegram channel, that conversation exists in Telegram's systems as well as ours.</li>
+      </ul>
 
-    <h2>2. What we do not do</h2>
-    <ul>
-      <li>We do not inspect, store or sell the content of the traffic you send through the network.</li>
-      <li>We do not build advertising or marketing profiles.</li>
-      <li>We do not sell or rent your data to third parties.</li>
-    </ul>
+      <h2>2. What we do not do</h2>
+      <ul>
+        <li>We do not inspect, store or sell the content of the traffic you send through the network.</li>
+        <li>We do not build advertising or marketing profiles.</li>
+        <li>We do not sell or rent your data to third parties.</li>
+      </ul>
 
-    <h2>3. Why we keep it</h2>
-    <ul>
-      <li>To meter usage and bill accurately against your prepaid balance.</li>
-      <li>To detect and stop abuse that would harm the network or third parties.</li>
-      <li>To answer support requests about your own account.</li>
-    </ul>
+      <h2>3. Why we keep it</h2>
+      <ul>
+        <li>To meter usage and bill accurately against your prepaid balance.</li>
+        <li>To detect and stop abuse that would harm the network or third parties.</li>
+        <li>To answer support requests about your own account.</li>
+      </ul>
 
-    <h2>4. Retention</h2>
-    <p>Usage and billing records are kept while your account is active and for a reasonable period afterwards, so that historical balances and disputes remain auditable. Connection metadata is kept for as long as it is needed for accounting and abuse prevention, then discarded.</p>
+      <h2>4. Retention</h2>
+      <p>Usage and billing records are kept while your account is active and for a reasonable period afterwards, so that historical balances and disputes remain auditable. Connection metadata is kept for as long as it is needed for accounting and abuse prevention, then discarded.</p>
 
-    <h2>5. Sharing</h2>
-    <p>We do not disclose account data to third parties except where we are legally required to, or where disclosure is necessary to investigate abuse that threatens the network or other parties.</p>
+      <h2>5. Sharing</h2>
+      <p>We do not disclose account data to third parties except where we are legally required to, or where disclosure is necessary to investigate abuse that threatens the network or other parties.</p>
 
-    <h2>6. Your choices</h2>
-    <ul>
-      <li>You can request rotation of your credentials at any time.</li>
-      <li>You can close your account by contacting us; usage history is removed on a rolling basis afterwards, except where it must be retained for accounting.</li>
-      <li>You should not send sensitive personal information to us — we do not need it to provide the Service.</li>
-    </ul>
+      <h2>6. Your choices</h2>
+      <ul>
+        <li>You can request rotation of your credentials at any time.</li>
+        <li>You can close your account by contacting us; usage history is removed on a rolling basis afterwards, except where it must be retained for accounting.</li>
+        <li>You should not send sensitive personal information to us — we do not need it to provide the Service.</li>
+      </ul>
 
-    <h2>7. Security</h2>
-    <p>Passwords are stored only as salted hashes. Access to administrative systems is restricted and authenticated. No system is perfectly secure, and you should treat your proxy credentials as sensitive and rotate them if you suspect exposure.</p>
+      <h2>7. Security</h2>
+      <p>Passwords are stored only as salted hashes. Access to administrative systems is restricted and authenticated. No system is perfectly secure, and you should treat your proxy credentials as sensitive and rotate them if you suspect exposure.</p>
 
-    <h2>8. Contact</h2>
-    <p>Privacy questions: reach us on <a href="https://t.me/QuotaPingBot">Telegram</a>.</p>
-  </article>
+      <h2>8. Contact</h2>
+      <p>Privacy questions: reach us on <a href="https://t.me/QuotaPingBot">Telegram</a>.</p>
+    </article>
+  </div>
 </main>
 
 <footer>
   <div class="wrap">
     <div class="foot-bottom">
-      <span>© <span id="yr">2026</span> Meridian.</span>
-      <span><a href="index.html">Home</a> · <a href="terms.html">Terms</a> · <a href="refund.html">Refunds</a> · <a href="aup.html">Acceptable use</a></span>
+      <span>© <span id="yr">2026</span> Meridian<span class="build">2026-09-17 21:12</span></span>
+      <span>
+        <a href="index.html">Home</a><span class="dot">·</span>
+        <a href="terms.html">Terms</a><span class="dot">·</span>
+        <a href="privacy.html">Privacy</a><span class="dot">·</span>
+        <a href="refund.html">Refunds</a><span class="dot">·</span>
+        <a href="aup.html">Acceptable use</a>
+      </span>
     </div>
   </div>
 </footer>
+
 </body>
 </html>

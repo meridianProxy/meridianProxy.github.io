@@ -1,0 +1,327 @@
+/* ============================================================
+   Meridian — policy pages
+   ------------------------------------------------------------
+   Same design language as the storefront: same near-black ground,
+   same violet accent, same self-hosted typeface. Deliberately
+   quieter than the landing page — a policy is read, not browsed,
+   so the layout is one column, one accent, no ornament.
+
+   Self-contained on purpose: no webfont host, no CDN, no script.
+   These pages are reachable from the Tor build and from a reader
+   with scripting switched off, and neither should leak a request.
+   ============================================================ */
+
+/* Plus Jakarta Sans is a variable font: one file covers 200-800, so the whole
+   typeface is a single 27 KB same-origin request instead of five. */
+@font-face{
+  font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;
+  src:url('assets/fonts/plus-jakarta-sans-var.woff2') format('woff2');
+}
+
+:root{
+  color-scheme:dark;
+
+  --bg:#000;
+  --card:#131315;
+  --line:rgba(255,255,255,.075);
+  --line-soft:rgba(255,255,255,.045);
+
+  --ink:#fff;
+  --body:#c9c9cf;
+  --muted:#8e8e97;
+  --faint:#5c5c65;
+
+  --accent:#a78bfa;
+  --accent-soft:rgba(167,139,250,.14);
+  --accent-line:rgba(167,139,250,.35);
+
+  --font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+
+  --gut:clamp(20px,5.2vw,44px);
+  --read:760px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*{box-sizing:border-box}
+
+html{
+  background:var(--bg);
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--body);
+  font-family:var(--font);
+  font-size:16.5px;
+  font-weight:400;
+  line-height:1.72;
+  letter-spacing:-.005em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+
+/* a single soft bloom behind the masthead — the only ornament on the page */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0 0 auto 0;
+  height:620px;
+  z-index:0;
+  pointer-events:none;
+  background:radial-gradient(680px 340px at 50% -14%, rgba(167,139,250,.13), transparent 68%);
+}
+
+::selection{background:var(--accent-soft);color:#fff}
+
+a{color:var(--accent);text-decoration:none}
+
+.wrap{
+  width:100%;
+  max-width:1140px;
+  margin:0 auto;
+  padding:0 var(--gut);
+}
+
+/* ---------------------------------------------------------------- nav */
+
+.nav{
+  position:sticky;
+  top:0;
+  z-index:20;
+  border-bottom:1px solid var(--line-soft);
+  background:rgba(0,0,0,.72);
+  -webkit-backdrop-filter:blur(14px);
+  backdrop-filter:blur(14px);
+}
+
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  height:64px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  color:var(--ink);
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:-.02em;
+  white-space:nowrap;
+}
+
+.brand svg{width:23px;height:23px;flex:0 0 auto;display:block}
+.brand em{font-style:normal;font-weight:400;color:var(--faint)}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:26px;
+  font-size:14.5px;
+}
+
+.nav-links a{color:var(--muted);transition:color .18s ease}
+.nav-links a:hover{color:var(--ink)}
+
+/* the button lives inside .nav-links, so it has to out-specify the link rule
+   above or it inherits the muted link colour on its white face */
+.btn,
+.nav-links a.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:36px;
+  padding:0 18px;
+  border-radius:18px;
+  background:#fdfdfd;
+  color:#050505;
+  font-size:13.5px;
+  font-weight:600;
+  letter-spacing:-.01em;
+  transition:transform .18s var(--ease),opacity .18s ease;
+}
+.btn:hover,
+.nav-links a.btn:hover{color:#050505;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+
+/* ---------------------------------------------------------------- head */
+
+main{position:relative;z-index:1}
+
+.masthead{
+  max-width:var(--read);
+  margin:0 auto;
+  padding:clamp(56px,8vw,92px) 0 clamp(30px,4vw,42px);
+}
+
+.eb{
+  display:inline-block;
+  margin:0 0 18px;
+  font-size:11.5px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+
+.masthead h1{
+  margin:0;
+  color:var(--ink);
+  font-size:clamp(32px,4.6vw,47px);
+  font-weight:800;
+  line-height:1.08;
+  letter-spacing:-.032em;
+}
+
+.updated{
+  margin:18px 0 0;
+  font-size:13.5px;
+  color:var(--faint);
+}
+
+/* ---------------------------------------------------------------- body copy */
+
+.legal{
+  max-width:var(--read);
+  margin:0 auto;
+  padding-bottom:clamp(60px,8vw,96px);
+}
+
+.legal > p:first-of-type{
+  margin-top:0;
+  font-size:17.5px;
+  line-height:1.68;
+  color:#dedee3;
+}
+
+.legal p{margin:0 0 1.15em}
+
+.legal h2{
+  margin:2.6em 0 .85em;
+  padding-top:1.35em;
+  border-top:1px solid var(--line-soft);
+  color:var(--ink);
+  font-size:19px;
+  font-weight:600;
+  line-height:1.35;
+  letter-spacing:-.018em;
+}
+
+.legal h3{
+  margin:2em 0 .6em;
+  color:var(--ink);
+  font-size:16px;
+  font-weight:600;
+  letter-spacing:-.012em;
+}
+
+.legal strong{color:var(--ink);font-weight:600}
+
+.legal a{
+  color:var(--accent);
+  text-decoration:underline;
+  text-decoration-color:var(--accent-line);
+  text-decoration-thickness:1px;
+  text-underline-offset:3px;
+  transition:text-decoration-color .18s ease;
+}
+.legal a:hover{text-decoration-color:var(--accent)}
+
+.legal ul{
+  margin:0 0 1.3em;
+  padding:0;
+  list-style:none;
+}
+
+.legal li{
+  position:relative;
+  padding-left:23px;
+  margin-bottom:.62em;
+}
+
+.legal li::before{
+  content:"";
+  position:absolute;
+  left:3px;
+  top:.66em;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--accent);
+  opacity:.55;
+}
+
+.legal li > strong:first-child{color:var(--ink)}
+
+.legal code{
+  font-family:var(--mono);
+  font-size:.9em;
+  padding:.12em .4em;
+  border-radius:5px;
+  background:var(--card);
+  color:#dcdce2;
+}
+
+.legal hr{
+  margin:2.6em 0;
+  border:0;
+  border-top:1px solid var(--line-soft);
+}
+
+/* a small closing block for the "we're reachable" note */
+.legal .contact{
+  margin-top:2.6em;
+  padding:20px 22px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--card);
+  font-size:15px;
+}
+.legal .contact p:last-child{margin-bottom:0}
+
+/* ---------------------------------------------------------------- footer */
+
+footer{
+  position:relative;
+  z-index:1;
+  border-top:1px solid var(--line-soft);
+  padding:30px 0 38px;
+}
+
+.foot-bottom{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  font-size:13px;
+  color:var(--faint);
+}
+
+.foot-bottom a{color:var(--muted)}
+.foot-bottom a:hover{color:var(--ink)}
+.foot-bottom .dot{color:var(--faint);opacity:.5;margin:0 7px}
+.build{margin-left:9px;color:#4d4d55}
+
+/* ---------------------------------------------------------------- narrow */
+
+@media (max-width:720px){
+  body{font-size:16px}
+  .nav-links a:not(.btn){display:none}
+  .masthead{padding-top:44px}
+  .legal h2{font-size:17.5px}
+  .foot-bottom{flex-direction:column;align-items:flex-start;gap:8px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
