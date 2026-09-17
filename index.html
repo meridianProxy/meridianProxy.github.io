@@ -2,6 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<noscript><meta http-equiv="refresh" content="0;url=tor.html"></noscript>
+<script>
+/* If this page is being served from an onion address, hand straight over to the
+   self-contained Tor build. The clearnet page requests a webfont and a video
+   from third-party hosts, and neither belongs on a Tor circuit. */
+(function(){
+  try {
+    if (location.hostname.slice(-6) === ".onion") {
+      location.replace("tor.html");
+    }
+  } catch (e) {}
+})();
+</script>
+
 <meta name="description" content="Residential proxy access sold by the gigabyte. Rotating or sticky sessions, country targeting, SOCKS5 and HTTPS on one login. Prepaid from $20, no subscription, balance never expires.">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="website">
@@ -1760,6 +1774,7 @@ console.log(<span class="c-cm">await</span> res.json());</pre>
       <span>© <span id="yr">2026</span> Meridian</span>
       <span class="links">
         <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Telegram</a>
+        <a href="tor.html">Tor build</a>
         <a href="terms.html">Terms</a>
         <a href="aup.html">Acceptable use</a>
       </span>
