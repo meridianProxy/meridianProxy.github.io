@@ -28,6 +28,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Meridian — Residential Proxy Network</title>
 
+<link rel="icon" href="assets/logo.png" type="image/png" sizes="64x64">
+<link rel="icon" href="assets/logo-32.png" type="image/png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=swap" rel="stylesheet">
@@ -239,7 +241,21 @@ body{
 .burger span::before{top:-5px}
 .burger span::after{top:5px}
 
-.arw{flex:0 0 auto;display:block}
+/* Icons are PNG alpha masks composited with currentColor.
+   Hardened Tor Browser builds set svg.disabled, which blanks inline vector
+   markup and vector data-URIs outright - every glyph on the page vanished at once. A raster
+   mask still paints there, and because it is composited with currentColor the
+   glyphs stay recolourable and scale to any size without shipping more than
+   one copy. The masks are rasterised from the original paths, so nothing about
+   the design moves. */
+.glyph,.arw,.chev{
+  display:block;flex:0 0 auto;
+  background-color:currentColor;
+  -webkit-mask-image:var(--g);mask-image:var(--g);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:center;mask-position:center;
+  -webkit-mask-size:contain;mask-size:contain;
+}
 
 /* ============================================================
    6. HERO CONTENT
@@ -781,7 +797,7 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
   background:var(--accent-soft);
   color:var(--accent);
 }
-.card .ico svg{width:calc(16 * var(--us, 1px));height:calc(16 * var(--us, 1px));display:block}
+.card .ico .glyph{width:calc(16 * var(--us, 1px));height:calc(16 * var(--us, 1px));display:block}
 
 /* --- steps -------------------------------------------------- */
 .steps{
@@ -907,7 +923,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
   color:#c2c2ca;
   border-bottom:1px solid var(--line);
 }
-.cap svg{width:calc(13 * var(--us, 1px));height:calc(13 * var(--us, 1px));margin-top:calc(5 * var(--us, 1px));color:var(--accent);flex:0 0 auto}
+.cap .glyph{width:calc(13 * var(--us, 1px));height:calc(13 * var(--us, 1px));margin-top:calc(5 * var(--us, 1px));color:var(--accent);flex:0 0 auto}
 
 /* --- pricing ------------------------------------------------ */
 .pricing{margin-top:calc(56 * var(--us, 1px))}
@@ -963,7 +979,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
   letter-spacing:calc(-0.15 * var(--us, 1px));
   color:#c2c2ca;
 }
-.ticks svg{width:calc(12 * var(--us, 1px));height:calc(12 * var(--us, 1px));margin-top:calc(5 * var(--us, 1px));color:var(--accent);flex:0 0 auto}
+.ticks .glyph{width:calc(12 * var(--us, 1px));height:calc(12 * var(--us, 1px));margin-top:calc(5 * var(--us, 1px));color:var(--accent);flex:0 0 auto}
 .price .btn{width:100%}
 
 /* buttons inside the flow are authored on --us, not --u */
@@ -1212,10 +1228,9 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
   border:1px dotted rgba(255,255,255,.09);
   pointer-events:none;
 }
-.pipe-node svg{
+.pipe-node .glyph{
   width:calc(20 * var(--us, 1px));height:calc(20 * var(--us, 1px));
-  fill:none;stroke:rgba(255,255,255,.72);stroke-width:1.5;
-  stroke-linecap:round;stroke-linejoin:round;
+  color:rgba(255,255,255,.72);
 }
 .pipe-node:hover{
   transform:translateY(calc(-1 * var(--us, 1px)));
@@ -1249,10 +1264,9 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
     inset 1px 1px 2px rgba(255,255,255,.06),
     inset 6px 6px 12px rgba(0,0,0,.55);
 }
-.pipe-hub svg{
+.pipe-hub .glyph{
   width:calc(28 * var(--us, 1px));height:calc(28 * var(--us, 1px));
-  fill:none;stroke:#fff;stroke-width:1.7;
-  stroke-linecap:round;stroke-linejoin:round;
+  color:#fff;
 }
 /* node captions - offsets differ per node so the three labels sit
    on one baseline despite the hub being taller than the side nodes */
@@ -1298,10 +1312,10 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 }
 @media (max-width:552px){
   .pipe-node{width:calc(38 * var(--us, 1px));height:calc(38 * var(--us, 1px))}
-  .pipe-node svg{width:calc(17 * var(--us, 1px));height:calc(17 * var(--us, 1px))}
+  .pipe-node .glyph{width:calc(17 * var(--us, 1px));height:calc(17 * var(--us, 1px))}
   .pipe-node::after{inset:calc(-6 * var(--us, 1px))}
   .pipe-hub{width:calc(52 * var(--us, 1px));height:calc(52 * var(--us, 1px))}
-  .pipe-hub svg{width:calc(23 * var(--us, 1px));height:calc(23 * var(--us, 1px))}
+  .pipe-hub .glyph{width:calc(23 * var(--us, 1px));height:calc(23 * var(--us, 1px))}
   .pipe-line{width:calc(46 * var(--us, 1px))}
   .pipe-lbl{font-size:calc(11.4 * var(--us, 1px))}
   .pipe-node .pipe-lbl{top:calc(100% + 19 * var(--us, 1px))}
@@ -1377,6 +1391,21 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
   .cta-final .ctas .btn{width:min(100%,272px);margin:0 auto}
   .footer-grid{grid-template-columns:1fr}
 }
+/* GLYPHS:BEGIN - generated by make_glyphs.py, do not edit by hand */
+.g-arrow{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAoCAYAAAC4h3lxAAACXElEQVR42u3Za2iOYRzH8Yc5REiWyHkZmYih7Y0XJIeY01prkpKitkJsDbGRLCktpRQykkOOkbRIDSVbzBwyh6QkKTnlOGxu3z+/J3deDe15ruvhrs+r58Vz/+7r+l/X/77uSBAEEZ/F6o9aoQv6YzD6oKMvAezm+2IC5mEh5mAsuut3pwN0w2QUYzv2YSuWKFSPvwkRi6efpqe+G3V4jGrswjJMRK8/DdHSAZIwCstxEi+DH9dbXFGoQo2Q1UVrF0dgGPI1de7hi0K8Qy32anpNRb/fDRGLGrA5PgPrcBR38VkhPuC6wq1EFgZo5JwJkKSlMxulOIx6fFKIBtzEAazGTAxEG5f2AbuZVMzCGhzELd18oDC3cQglmI1BzQkRy13TRiIF07EK+3EDHxXCptUdHMFa5GAI2roSIKICtd14GlaogK/hfSjEfRzHeuRiKNq5EiAawnbmKSjCHlzV0hpolXqAE9iAPAxHe1cCRJfX3pikPaICNXijEI14iFPYiLkYgQ6uBIiG6Kl2Yil24jJeK0QTHuE0NqmPSv+1CQyvEp3RNQ6sJsZjsXqlS3gVCmGtRyU2Yz7GoFM4QDJGazvP0ioRDzlq8LbhIl4oxFc8wVmUYwEy1J5/DzAOBShTyngrV02cxzMFME9xDlvUHGZaTViARdiBC1oNXGKb3fNQCAtUpRBW2CkR7YxnNO8aHdUU/LxsJI6p8EcmRADvp5D3Rez9Mur9RpYQrcT/Zu5faae9fqHx+pXS65d6749VvD7Y8v5oMSEOd70+Xvf+A0dCfGLy/iNfi35m/QYv5ijLgrEI0AAAAABJRU5ErkJggg==")}
+  .g-globe{--g:url("data:image/png;base64,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")}
+  .g-clock{--g:url("data:image/png;base64,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")}
+  .g-grid{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAACZ0lEQVR42u2bMWvCQBiGjWBQXJyFgJtUcNDBRXDr4O7o4Co4OWRxccniX3BwFMEOgeIv8De4iqO4OLg4pV/pW5CQmLvUgu29wjN0uPfyPUkvdxcuEwRBxmQyFEABDw20BFsoCnn8/YjMPDLtB2X+ioCcUBHawqvQEapC4QeZBWR0kNlGH7lnE5DFhfYEV/CEidAXGrhzupk22vaR5SG7h76yzySgJHSFqfAmbIV3YYYLLqfILKPtDFlbZE/RV+mZBDi4U3NhJ1yFg7AUhkItRWYNbZfIuiJ7jr6cZxLw+X85EBbCPvj6nYS1MBLqmoOXhTYjZJyQuUcfA/RJARRAARRAARRAARTwcAFZTDUddJTES4KApmLOLc0EAS+KOQ5qyaoKyGGx0cWUc6DIMEbAWCMjzDhGwFAjo49aqlGryKhHr4JFyBTz7oUGq5AAX7N9FH5IwEqz/Ry19FCbdU+AjTW3i5XXDp3qcMTFnlO0jeOMzGOKtjvU4qI2+56AIjYePCw/r8Hf/11Ri4faivcE5LH7MsEa/IDHT4fvu3VJ0TaOy81Tpdv2gFomqC2fNAZUMXDMsBZfa+CHxoCNZvsoNqExwNdsv0QtfdRmJb0FCtiK6mG0HSkyjnkLuBoZYdyYt8BYI2OIWhpR+5P39uPK2JWpK9BMmAe0FHNuaSXMA5qKOTXUYqedCVoKqM4EdVCZCarkcCpMARRAARRAARRAARRAAZwKqwswejFk9HLY+A0R47fEjN8UNX5b3PgPI8Z/GuPHUU6FKYACKIACKIACKIACeGCCR2Z4aCrgsTkenOTRWQr45wI+AHMzmZYCD7RsAAAAAElFTkSuQmCC")}
+  .g-code{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAADC0lEQVR42u2abUSdYRzGT53T1oucqC+pxMTM0mYZGfvULGskm8RMGUn0LVIyo8aKTJrIPjRmxkRGsplYkfQlKhLbxExiMrPNbK2XZ7/Hrk+zc3La85zz2P7xI+q+/td9PS/3y3OHHMcJ/c+ELAALwAKwACwAC8ACsAAsAAvAAvCKCEQhH3Ih/BdaYWnkSzMS9ABck2egFq5ADZyErENoZaltjbRqpR0NagCusXPQCv0wDH3QBKcSvHoRtWmSxrA0W1UjGrQA3Nu0SgZHYAaW4bmM10FBAnoFatMvjWVpjqhGlWoGIoAcOAstcA9m4QPswWsY05UsTUCzVG3GpLEnzVnVaFHNnFQHkA2VcAOG4CVsOb9+tnXlRuEaFCegW6w2o9LYluaWagypZqU8pCSATDgNzXAXpuE97MMPWIMn0A3VCd6yuWrTLY01ae6rxrRqNstDZrIDOAoVcB0G4QVsyuAOvIJxuKln2b2l0xLQT1ObOmmMS3NHNTZVc1AeKuQpKQEcgXLdogPwDDZkbBfewATcgno4dsi5QFht66U1Ie1d1dpQ7QF5KZc3XwPIgBPQCHdgCt7JkPuiWoen0AtXocyDiVCZtHqlva5a+6o9JS+N8pbhVwDu2HwcGuA2TMJbmdnT75P6W4P+N+LRzNK3uoG5Eqm68wLzLKbq3XNQ0fRkvY19HH3SDxuAOxSVwGXo8Xs89mH+0SPvJfGG4HidL4JL0AWPYdXPGZnHM9BVee5SH4pihRCr84VwETrhEazAdxXwZU7u4RrEkdcVee9UXwr/FEKsldgF6ICHsATfJPwR5vxYlXm0Cp2TR0eel9SHDvWp4KAAwtp0aIcHsAhfJfgJ5rVAafN6Xe7BPkSbvM3LqyPvi+pLu/oWjhdAthYhfVp/f5HQZ1iA+xI6D3kB2tvLk6d2eVyQZ0d9mFGfqn9/V1kA9gjYS9CGQZsI2VTYFkO2HLYNEdsSs01R2xa3DyP2acw+jtrncTsgYUdk7JCUHZOzg5IWgAVgAVgAFoAFYAFYABaABfDvB/ATFLG0UJd/Au4AAAAASUVORK5CYII=")}
+  .g-chart{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAEwElEQVR42u2aCYhUdRzHZ9adcce19aIVC7HDA1ezTNJMlFpMjBKv9SwvNDJKCUvDVhHxyLNLQxExEUREzTxRI0RLMS+IPEpzTROPVayNLM12x+8fPgOPZXdnnfd849v+Cx94zMDO//t9///vei8Uj8dD/2dC1gBrgDXAGmANsAZYA6wB1gBrgDXAGnAfE3ZBYA0wi39APCbaiidSJE88JKJBM6CxeF6MEG+74E1RINqLWFAMqCO6infEUrFOrE+RNWKeeE20Kn8s7lcDmohBYpH4XlwRV1PknNgqCkU3kRUEA5qx9VeIM3F3f/+KfWK26CGyg2BArugvFoo9mHC2mpg7/ococxiwP2gG1BYdxRuYYHbCF0lYLb4RFxH/n7gdVAMM9TChP8dhZCWMw6Sd5cSfR3xgDUjshFxiwiMOmotnMWZBBeLNkTlUEwyoLEU+nUT8JkSnzYAwRUdDiFWnLPVI/Ffis3QakCGaknP7QDc+y/BB/AzEpsWADM7rK2Ki+AjMdS/q+sx7LH5YugwIc5dfFpMpQQ+BuZ4i+ooWInKPxA8UL6XDACP+YdFTTCIn/yhuwQnq+Wk0Jq0r685cim+DSF8NCFO7m3/+nlglfhA3y5Wjp8SXLHYQLW5tD8UbU+v7bUCYtrW7mCBWiqPiH4T/LopZ9G1HijKLeVU8WVGLmqL4COJ8NeBBkU/basrVw+IG4kv4YVOeXmLxpeJXsU3MFcNFB1HXA/Ehvw1oxMBivFguDoq/EP+nOCCWkQWMiAsOE34TOyhhR1Hy5rgU76sBDRhYvIXIA4iOY8JBTBmPmPliO51aKYKMsK/FJ+J10dml+BDH6QWC7S6OXzHX0/gu5tYA06R0YdS0BHdLEH+DY7CCY5HPKMpMYz4UW0QRgsoYdOxm8DHWpfhEHWLmgGPEYn5vC9dj+C7DjQE53CnTpn4uviXQxQl8RwmEEwiMjZnAmB8eImaKjeI0QdH8XRN7MdONeOcan6NTnAgj+SzHzUzQBKpObNdFDCquI+ImqW8VqbAHqTFR/0eZzg4Q05nV/cT5TGSLfR6Id661JevtxHVdN1NhEzieEaPFp2zbayz+FkXPaoqgnhRF5ZufCEPJfmKqWCuOOeqFEo/EO1N0JoTdPBeIEZxMtP6YtFbsKHCOU+pOpgxuWsUPmsU8LnqLDzDN7Jy/+X9eiffsyZA5v0+RrxcQtS+zUCP+JHeykGanWTU6vloMNYxZ73NsjpA9fBWfzABTprYjgs8jb190VHU/U99P5Y4+ehftbqJlNsflXWZ6+wmiG/0SX5UBUWr1oWIOOfyCY4v+IjaQW/uyrWulUEabR1YvUi/MpyaY4pf4ygyIELEHUz1tZcCYqOKK2KLTGVi2SLHHT5iQy3yvF2bmM/OLxNPwdDjM+SwgZ2+mdi911PGb+W4gUT0z7s3wswHldbZH47OUDIhS5U2idS1ylK7n2Q2z2R15ft0lPw3I5kzOEt+R48s4/9uJB0OJD9Ggi6/IgCwGmIXc7XOww/GEtV2SQUagDQhzrhOpb43j8fJwaoKsmv6KTIwOroCOr8oXDGrqO0JRcnResldM7EtS1gBrgDXAGmANsAZYA6wB1gBrgDXAGmANCJ4BdwCvHcnmUO1/dQAAAABJRU5ErkJggg==")}
+  .g-card{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAADsUlEQVR42u2bTUhUURiGHacpMkNHpZVQguAi0q0pIkxgiyxJcdMigkFaFC1caGoIxkiLQPxZuKhICFxE0EYqTcQQWghqCS1sk+AymCQkR1Kn98IjiBQz17kz906egWdXc9/v6Z6fOd8pJx6P5xxlcowAI8AIMAKMACPACLCLTwREvgiKEpcIkiFAprQL8IsiUSEuigbRJJpFS4Zp5tkNZKkgmz8dAiy7BaJSXBFh0Sn6xYAYFiMZZphn95MlTLZKsvqcEpArSkVItImIeC4mxJxYFMsusUiGCTJFyBgic26qAqwvKBONokM8EdNiRUTFltgRuy6xQ4YomabJ2EHmskQSEr32pXxRjxgXS2Kdh1ufbbEpNlxikwxxMq2TcZzMjdTgO4yAAl6lDr7wC7atT0ysiQUxK6bEZIaZ4tkLZImRbYus42QPUYstAX4mkzZeqaV9xf8Q8+KlGBJ9olt0ZZhunj1Elnmy7UlYInsbtfjtCChiRo0wrtb3Ff9BjIp20YrhGpaiTFLDs1vJMkq2PQnrZI9QS1GyAnysqWFm1hXGVwzL1oNuizrGVx4bETfII0MdmUbJGCPzCjWEqcmXjIAAhjtZXqIYXeNVa+eBhR7a0haSqZ2Ma2SOUkMnNQWSEZDP7qqfNXaLmXaB8daKda/t60vJNkTWbbLPUUsDtSUUEGSLOcBGY4flZpZJJ8Sr5zUBeWTrI+sm2ReppYnaEgooYZ89zG5rlzV3ipnXmnyOM568xHGydZN1g+zL1NJMbUkJaGG/vV/AJMtPvbjgUerJOHlAwAg1pSygV9z1OL3pEjAjXmUJM04LsNbV71lGzEkB2fpxTMAvsSq+ZQmrZHZ0DngvxthaepkxsqZlFbB+Y9/yOD3pXAatNbZWnPMoteneB3T960eFB9j7EWcEGAFGgBHgmgDr4PG0KE6yt2f9uVOH7et5TcBJcV5cttErvM4hRrkDb5WrAo6JKnFTPLTRKxwUDzjKKk/xTXBVgPV3rolH4q34bKO39xoJIYZDVgo4y7/+M/HVRr/wNxIGGQ7F2SrAOpG9wbn8J/Ezyd6e1cT4KB6Lq387tHRLQKJD0YMCrJn/krgvXoh3Sfb33oin4p6oFidSFODIoehhjsV9DAOrBXUHEcn09zr39fPPeOVY/LCNkVyKqLLR36tm6Qw6sBdwrDGSamss12Z/z+e11tiRb44e+fa4uSBhrsiYS1Lmmpy5KGmuyprL0ua6vPkPE0aAEWAEGAFGgBHwfwv4AwqoDiGQxfh/AAAAAElFTkSuQmCC")}
+  .g-window{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAAE40lEQVR42u2cT2hURxzH3Wg2saE2lkCJLZbQomIJVq14kUTtxbQRLBYRCRiCxoKGXsTGQ//hpZRctIgKCharp1DbepCWHhQUrKkoilKpKJWkEihFazSSmjy/Qz4Lc9rsexvDm91f4AMRyc58P292Zt68mTctiqJpRnJMggk0gSbQBBom0ASaQBMYh4yoFrPFK6JezAmMeuo+myyZqRA4XdSJt8UasVF0iM5A6SDDGjLVkfG5CKwRi8QG8YnYK46Jk+KnQDlJhr1k2kDGmskW6Jr5SvGxOCR+FTfFP2JIPA6UITLcJNMhMq4k86QInCVWi92il8KGo9L7GSZbL1lXk70ogZViudgpvhf9YowCx7iCg+LvQBkkg5+pn6w7yV5ZjMC5ol18K+54BblCr4pT4ihNP0SOkuEqmXIS75C5HQeJBDrzTWKPuCD+p4D/xBk63h3iQ7FWtAbGWuq+gyxnyBaR9QLZm/K1wnwCX2aId1finvfBv4keCp8vXhIzmUuFxEzqPp8sPWTLNZR7ZN+Ii9gCG7g6p71Bw/UZ39G0G5JOPlNGhiztZBv0BpXTOGhIIrCR0ei8GOVDb3Cl3AiVLaFbsiyZesgYkfk8DhqTCFwiPhd93lB/SXwplpVI6/Nb4TKyXfLy9uFgSRKBS/nj370PdL9/wf+V2sLAUrLFymsCTaAJNIEm0AQGIzDLXcAMExhf3DzxrnhfrGBZPWMCJ6aCmfxWZvoHmLC6+8/XUyQxtQJrxXrEXRZ3Wfn4OmUSUyuwntb3g7fm9kCcTZnE1Ap0T7raeHhz11uUTZvE1ArMMmh08xSsP6USUz0K17JclGaJqZ8Hpl1iEBPpNEsM5lYujsS5JjC5xK9ES5xtFuW2mJBP4r/sEOhgB5UJNIH2FbZBxKYxNpEuWl6Nt6U4DnUFbAQo6Vu5DF/nloRbitu4H68t18UEt7nnAwaW3gRbeY+xhXdFnpZY0stZb7Hh8RemOHG38v5F+W3Up+wWVN3elM/YfjaWYPvuEOVvpT5lt6T/ptjO1/fPmNt4Byj3APWoLceHSi+IVXyNv0mwlbeH8hupT1k+1pzFV7mF7bmF0kq58yaYypTFg3XXeqrYnlso1QVuBrWtHbY3xgSaQJ/F4lNx0Zt7XebsxPI8o1mIVJBpDxlzB24u4mBxEoELxS4mvLmzE7fEPvHeFK7TTQU1ZNpHxtyZmLM4WJhE4Gtim/hRPORD73M/28VVqSoBeVVk6SLbfbI+JPs2XMQW+KJYJw6K216z/kMcFh9xDOoN7wR4SMyh7k1kOUy2XHd1m+zrcBFboOsX3mEVxZ2lfcQHj4hr4gR9RlfAJ9a7yHCCTCNkfETmbhxUJD2tWcf9o+sbrnh94VPOkrmDKD9H4yceQzutfoq695Hlqdf3XSHz+jyrNwUJdLdaC8QWcSQaPxb6xBvmR/n3cICn1Yep+6iX5wkZj5B5wUS3m4V0spV0sp30Ceei8QN5I1Hp/IyQ6RwZO8lcOVnvTMiykrGJPuM4Q/x1FisHAjytPkDdr5PlONk2kTU72W/tcK8DeVU0i810sG5Nb3/AJ9b3k6GbTM1knP48X7yTZRqwiAJbvBPgIdFK3ZvJUp/kCG+xk9AZTESrA6Wq2DMr9v4re/mYCTSBJtAwgSbQBJpAwwSaQBNYbgKfAWS1nPH8FoZUAAAAAElFTkSuQmCC")}
+  .g-hub{--g:url("data:image/png;base64,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")}
+  .g-brand{--g:url("data:image/png;base64,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")}
+  .g-stack{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACOEfKtAAADEUlEQVR42u2cT0gUcRzF3dVEl8Q9Kavgwb2EB8G8FEQoCx6kVRICDwUe1I4JItHBChasvXRREUVPhhCG0B88dNqF6CCJgjeDIMEuKWiJkabTG3gLk1DszuzK/nbfwgcWdHf2vZn5fb+/3+8xJZZllQj3yAQZKANloAwUMlAGykAZmAlloArUgBCoM5QQNVRRU84NrASN4DroAX1gAAwaygA19FBTIzVm3UAfz1gE3AVjYA4sgteGs0gtY9QWoVZftgz0gzC4BWLgJVgFX8E+ODScfWpZpbYYtYap3bOBDaAXPANJ8A2cWIX3OqG2JLX2UrsnA6tBJ4iD9+DAccBfYJdnz2R2qSX1OqDWOLVXuzXQHgOawTB4C/Z4gFMeOAEWwAyYNpQZakhQ0yk17lHzMD3wuTHwIoiCCbDpOENbHHhHwR3QBW4YShc1jFLTlkPnJrVH6UXGBtazzC+B7/zSH2AZ3AdtoBYEQIWhBKihjZqWqdGi5iV6UO/GwCYwwkH1mF/6GUyCbhD8z2cv8KwF+SNL83xGEaSmSWq0qDlJD5rcGNjCS3vFMTasscxf+UeJL2f5bwc3WcnsW+Uqz7Q/Tw30U1OMGlNj/Qo9aHFjYCt4BD46xgX7/WP+7ez/B/gj+lnBZsFzMAUesre6lMdXYyu1pas3qwbaplwGQ2De0WjvgC+scuPgdjq9VTEaGKI59lX3Cfw+06TaHf8H8AR0ZDrfLAYD7V7pAQfdVFN6xEqWmrXYV+MLTt5rZeDft+818BRsOAbgdfAKbDtmLu/APRYaGSgDdQuriKiNkYFqpDWVy9FUTosJHhcTtJzlcTlLC6oeF1S1pO9xST+TTaVtQ8npppK2NbOwrZnuxvpPQzmXjfV0oh1vDOVcoh0KF8lApbOUzlI6S22M0llKZxVwOitqKHmTzqo0FKWzlM5SOkubStrW1Ma6oh0KFylcJAN1C6uIqI1RG6NGWukspbOKMp2l5Syls5TOUjpL6SxtayqdpXSW0lmFnc7Sw8f0+Ds9P1AGykAhA2WgDJSBQgZ6N/APL3NXii7/1B4AAAAASUVORK5CYII=")}
+  .g-tick{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAADpElEQVR42u2ZfWjMcRzHd7u7nYdLOxepZW15iHlIHlZElNrYGKPNUx5GyiKksDw3j2nCKCHlsZmHMOShSVOeipiGpiHmabVCzMx2zvtT78uvy8397sG+p9/Vq7t+f9zv8/7d5/v5vD+fi3K73VGRTJQhwBBgCDAEGAL+RwFm4ACdiYPXIkJADEgCaWA6SeO1GNUFWEEvMAXkg/0kn9e6g2hVBVhAD5ANNoLz4CkpAWvASNBWRQGS313BRD7ts+AlcIEm8ADsBJnAqZoASYlEMJ5P+TSoYuDy+gZugwKQwQOtjAATiAdjwUpwAlSCRgb/HZSDw2AxGAxsqgiQ4OPAaJAHisBj8IPBy3sFOAaWg1GgkypVyMRgUsBScAQ8Ag0MvpGHtxisAOnsByZVBHRgRVkCDvKQ1jN4yf1n4BRYDcaBBO/y2ZIC2oMRYCE4AO6BOgYvVecFOAPWgQmgi68u3BICYsFQMB/sA3fAFwb/E7xizd8Asti4LKp4oXasIvPAHnATfNYE/wZcBJvBZNCTnTkgM2djhUgicd7lSyd2kAzmgl3gBvioCf49uAK2gmmgz598j78C5GYD2dJzSTav2QMIvjUYAHLADnAd1Lp/v2pAKdgGZoJ+oFWgdtpM9Tn8wiIin+fwKeoRYWNAM/gdpQzY86qlIBE2m0LbBDMPSJ6mgvXgKqgm13gTPSIkBXozJSQ1LoN3TBk3U0hSaTdTKzmQX9j7gpOlq5At3MUb1ugUYeUhlMO4iYezWhO8HN5bPMxyqIfw4QU9kcWy620BZeCT5qD5K8LC8pfFX7KE5dHF75KyeZdlVMrpMN43JCOllYdVDu5ePiU9IsxsPJlsRNKQnmuCr2Pjkga2iA3NGeqZWOzqcLBAp4hotvwMWoCTtARNGmcpluEQLYRYiY7hGuqdAYhIYPqJ+TpOM+axxQ00a0dp3lJo5kzh3EroFTEGLKP9rdA4S7HFT1iO8zigx4UieH+shB4ReRw8ypkuHltcyUFlFQeXeF/OMlx7IX9FSHrc5wjoscVVHBHXcmRMDGXwesycPyIegq8aWyxD+TkO6TKsd2vOFv+LzdzfRNRrPr8GF7gemcR1iUWF1WJzIjzBvwWX2AynclFlVWk36kuEpM0HeqgCrgT7BmnDw7bc9RZRxuojwW8Hs0B/Wmllt9MeEblMl0J6H7Hig7xXgKqu1x30Tul0samcJ+yR9P+AlW7SSUtsNv7gMAQYAgwBhoCIEfALHXYEIAyfdgsAAAAASUVORK5CYII=")}
+  .g-chev{--g:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAgCAYAAABU1PscAAAC1ElEQVR42tXYS0hVQRzH8XN8ZWULuUQRRUSUERqKRqtARBQREUUkJAqXQUREDyKiKAkRRWgTiIgoIiJKSETYyk1ERBQREUmIKLZoo/h+3b5DvwvTQ1NyJhU+4L33zPx/f73nnDkTRKPRYCuzX4RIkHAThv1jvtiHu5CGU5Km9zZL+BXzmQ9TcRrVuC7Vei+yCcJHVsmXag7IwQU8whMxv19ELnb/p69UqNq5yvJrPpM5xxxYjFoM4Ju8QBMuIQ97PDcRqmaeMjQpUyzfgDIXm4PL8RDvsBT98TOOl2jGZeRjr6cmQtXKV+1mZRlXtiVlNZnLzYBC3Ec/vmJZB07gFVpwBQXY57iJUDUKVLNFGSaUaVkZ+5W50AzK0EnRiOcYs5qYxGu04qqa3e+oiVBzF6pWq2pPWuHHlLFRmTPMwBSc1BsN6m7UamIKb9CGayjCAcRtYPg4zVmkGm2qOWWFH1W2BmU1mVNiE+xENs6jHs8wYjUxjbdoxw2d+Ac3qIk4zVWsudtVa9oKP6JM9cqYrcw/3Yl3IAvnUIenGLZO7BmdPB24iRIcQvw/hI/XHCWas0M1ZqwTdlhZ6pQtS1l/W0oY25GJs7pMmWvukNXELN6jE7dQisO6va83fILGlmquTs09a4UfUoZaZcpUxmClBoxknEAVHqAPX7CoiefwAV24jTIcWWcTCRpTpjm6NOecaiyqZp8yVClT8mqLOds2pOMMavAYg1YT8/iIbtzRveQoEtcQPlHHlmtst+aat8IPqmaNMqQrU7DWBowkHEcl7qEXn7FgNfEJPbiLChz7SxOJOqZCY3o0Ryz8gmr0qmalMiStZTntuqCLP0gQePqXO/tK+jjpnF4UfFz2nF6Wfdx4nN4Yfdz6nS5NfCy+nC4OfSx/nS7PfTyAOH1A8vEI6PQR1ddDuLNNAp/bIE62aXxvREVc7o162QrcKg142ywOtvr2+ncmPD7oSqwRMgAAAABJRU5ErkJggg==")}
+/* GLYPHS:END */
 </style>
 
 <script>
@@ -1454,10 +1483,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
   <div class="nav-actions">
     <a class="btn btn-login" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Redeem a code</a>
     <a class="btn btn-nav-start" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get access
-      <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-        <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-              stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+      <span class="arw g-arrow" aria-hidden="true"></span>
     </a>
   </div>
 
@@ -1474,10 +1500,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
   <div class="divider"></div>
   <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Redeem a code</a>
   <a class="m-start" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get access
-    <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-      <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-            stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+    <span class="arw g-arrow" aria-hidden="true"></span>
   </a>
 </nav>
 
@@ -1505,16 +1528,10 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 
     <div class="ctas">
       <a class="btn btn-lg btn-primary" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get access
-        <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-                stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <span class="arw g-arrow" aria-hidden="true"></span>
       </a>
       <a class="btn btn-lg btn-ghost" href="#pricing">See pricing
-        <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-                stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <span class="arw g-arrow" aria-hidden="true"></span>
       </a>
     </div>
   </div>
@@ -1563,37 +1580,37 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
     <div class="grid grid-3" style="margin-top:calc(64 * var(--us, 1px))">
 
       <article class="card rv" style="--d:0s">
-        <span class="ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.2" stroke="currentColor" stroke-width="1.3"/><path d="M1.8 8h12.4M8 1.8c1.7 1.9 2.6 4 2.6 6.2S9.7 12.3 8 14.2C6.3 12.3 5.4 10.2 5.4 8S6.3 3.7 8 1.8Z" stroke="currentColor" stroke-width="1.3"/></svg></span>
+        <span class="ico"><span class="glyph g-globe" aria-hidden="true"></span></span>
         <h3 class="h3">It rotates unless you say otherwise</h3>
         <p>Out of the box, a plain login hands you a different address on every connection. That is the right default for anything that crawls, checks or collects at volume.</p>
       </article>
 
       <article class="card rv" style="--d:.06s">
-        <span class="ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.2" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.6V8l2.4 1.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        <span class="ico"><span class="glyph g-clock" aria-hidden="true"></span></span>
         <h3 class="h3">Or hold one address</h3>
         <p>Add a session token and the same exit stays with you for around ten minutes. Long enough to log in, work through a flow, and look like one continuous visitor.</p>
       </article>
 
       <article class="card rv" style="--d:.12s">
-        <span class="ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 5.4h12M2 10.6h12M5.4 2v12M10.6 2v12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        <span class="ico"><span class="glyph g-grid" aria-hidden="true"></span></span>
         <h3 class="h3">Countries, honestly</h3>
         <p>You can prefer a country and take whatever is free, or demand one and be told no when nothing is available. We do not claim city or ZIP targeting, because we do not do it.</p>
       </article>
 
       <article class="card rv" style="--d:0s">
-        <span class="ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5.6 4.2 2 8l3.6 3.8M10.4 4.2 14 8l-3.6 3.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="ico"><span class="glyph g-code" aria-hidden="true"></span></span>
         <h3 class="h3">SOCKS5 and HTTPS</h3>
         <p>Both on the same credentials, so you do not juggle two accounts. Works with Playwright, Puppeteer, Selenium, requests, Go, or plain curl without a plugin.</p>
       </article>
 
       <article class="card rv" style="--d:.06s">
-        <span class="ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 11.4 6 7.2l2.8 2.6L14 4.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.4 4.6H14v3.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="ico"><span class="glyph g-chart" aria-hidden="true"></span></span>
         <h3 class="h3">Rules that stack</h3>
         <p>A country, a session and a rotation mode are all just words in the username, and they chain. One string covers every combination you will ever need.</p>
       </article>
 
       <article class="card rv" style="--d:.12s">
-        <span class="ico"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.2" y="3.2" width="11.6" height="9.6" rx="2.2" stroke="currentColor" stroke-width="1.3"/><path d="M2.2 6.6h11.6M5.4 10.2h2.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        <span class="ico"><span class="glyph g-card" aria-hidden="true"></span></span>
         <h3 class="h3">You can see the meter</h3>
         <p>Ask the bot for your balance whenever you like, and it pings you at eighty percent so a long job never dies halfway through for a reason you did not see coming.</p>
       </article>
@@ -1666,7 +1683,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
       </div>
 
       <div class="pipe-node a">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="2.2"/><path d="M8.5 9.5 11 12l-2.5 2.5"/><path d="M13.5 14.5H17"/></svg>
+        <span class="glyph g-window" aria-hidden="true"></span>
         <span class="pipe-lbl">Your app</span>
       </div>
 
@@ -1675,7 +1692,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
       <div class="pipe-mid">
         <div class="pipe-splash" aria-hidden="true"></div>
         <div class="pipe-hub">
-          <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16"/><ellipse cx="20" cy="20" rx="7.2" ry="16"/><path d="M4 20h32"/></svg>
+          <span class="glyph g-hub" aria-hidden="true"></span>
           <span class="pipe-lbl">Meridian</span>
         </div>
       </div>
@@ -1683,7 +1700,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
       <div class="pipe-line r" aria-hidden="true"></div>
 
       <div class="pipe-node c">
-        <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg>
+        <span class="glyph g-stack" aria-hidden="true"></span>
         <span class="pipe-lbl">Target site</span>
       </div>
     </div>
@@ -1697,11 +1714,11 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 
       <div class="rv" style="--d:.08s">
         <ul class="cap">
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Rotating and sticky on the same credentials</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Country preference or country lock</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Directives chain in one string</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>SOCKS5 for anything non-HTTP</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>No SDK, no plugin, no agent</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Rotating and sticky on the same credentials</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Country preference or country lock</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Directives chain in one string</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>SOCKS5 for anything non-HTTP</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>No SDK, no plugin, no agent</li>
         </ul>
       </div>
     </div>
@@ -1724,17 +1741,14 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
         <p class="price-line"><b>$3</b><span>/ GB</span></p>
         <p class="p sm" style="margin-top:0;font-size:calc(14 * var(--us, 1px));font-weight:300;color:#a9a9b1">The rotating pool. Right answer for most work.</p>
         <ul class="ticks">
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>A different address per connection</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sticky sessions when you ask</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>SOCKS5 and HTTPS</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>No cap on connections</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Traffic you do not use is not lost</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>A different address per connection</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Sticky sessions when you ask</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>SOCKS5 and HTTPS</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>No cap on connections</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Traffic you do not use is not lost</li>
         </ul>
         <a class="btn btn-lg btn-ghost" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get access
-          <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-            <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-                  stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <span class="arw g-arrow" aria-hidden="true"></span>
         </a>
       </article>
 
@@ -1744,17 +1758,14 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
         <p class="price-line"><b>$4</b><span>/ GB</span></p>
         <p class="p sm" style="margin-top:0;font-size:calc(14 * var(--us, 1px));font-weight:300;color:#a9a9b1">Ask for a country. Take the next best if it is empty.</p>
         <ul class="ticks">
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Pool</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Name the country you want</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Falls back instead of failing</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Keeps a long job alive overnight</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Good when the country is a preference</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Everything in Pool</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Name the country you want</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Falls back instead of failing</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Keeps a long job alive overnight</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Good when the country is a preference</li>
         </ul>
         <a class="btn btn-lg btn-primary" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get access
-          <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-            <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-                  stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <span class="arw g-arrow" aria-hidden="true"></span>
         </a>
       </article>
 
@@ -1763,17 +1774,14 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
         <p class="price-line"><b>$6</b><span>/ GB</span></p>
         <p class="p sm" style="margin-top:0;font-size:calc(14 * var(--us, 1px));font-weight:300;color:#a9a9b1">Strictly one country. Nothing else will do.</p>
         <ul class="ticks">
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Pool</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Locked to one country you name</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Refuses rather than rotating away</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>For work that is region-locked</li>
-          <li><svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>No surprises, no silent fallback</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Everything in Pool</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Locked to one country you name</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>Refuses rather than rotating away</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>For work that is region-locked</li>
+          <li><span class="glyph g-tick" aria-hidden="true"></span>No surprises, no silent fallback</li>
         </ul>
         <a class="btn btn-lg btn-ghost" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Ask about it
-          <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-            <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-                  stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <span class="arw g-arrow" aria-hidden="true"></span>
         </a>
       </article>
 
@@ -1821,43 +1829,43 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
       <div class="faq-list rv" style="--d:.06s">
         <details open>
           <summary>What actually is a residential proxy?
-            <svg width="12" height="8" class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="chev g-chev" aria-hidden="true"></span>
           </summary>
           <p class="ans">Instead of your request arriving from a server in a datacentre, it arrives from an ordinary household connection. The destination sees a normal consumer IP on a normal ISP, which is why it is treated differently from a hosting range that gets challenged on sight.</p>
         </details>
         <details>
           <summary>How do I get an account?
-            <svg width="12" height="8" class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="chev g-chev" aria-hidden="true"></span>
           </summary>
           <p class="ans">Message the bot and describe what you are running. You will get payment details, and once that clears you receive a single-use code. Redeem the code in the same chat and your endpoint and login are issued on the spot.</p>
         </details>
         <details>
           <summary>Do you charge monthly?
-            <svg width="12" height="8" class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="chev g-chev" aria-hidden="true"></span>
           </summary>
           <p class="ans">No. There is no subscription, no seat and no recurring charge of any kind. You buy gigabytes when you want them and spend them whenever you like. If you do not touch the network for six months, nothing bills you and nothing expires.</p>
         </details>
         <details>
           <summary>What is the smallest amount I can buy?
-            <svg width="12" height="8" class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="chev g-chev" aria-hidden="true"></span>
           </summary>
           <p class="ans">$20, which is a few gigabytes at our rate. It exists so you can try the network against your real targets before committing to anything substantial.</p>
         </details>
         <details>
           <summary>Can I pick a city or a carrier?
-            <svg width="12" height="8" class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="chev g-chev" aria-hidden="true"></span>
           </summary>
           <p class="ans">No - targeting is country level. You can prefer a country and accept a fallback, or require one and get a refusal when none is free, but we do not offer city, ZIP, carrier or ASN filters. We would rather say so plainly than list filters that quietly do nothing.</p>
         </details>
         <details>
           <summary>How do I keep the same IP?
-            <svg width="12" height="8" class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="chev g-chev" aria-hidden="true"></span>
           </summary>
           <p class="ans">Add a session token to the username and one exit stays with you for around ten minutes, long enough to complete a login or work through a multi-step flow. Leave it off and you get a fresh address on every connection.</p>
         </details>
         <details>
           <summary>How do I keep track of what I have used?
-            <svg width="12" height="8" class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="chev g-chev" aria-hidden="true"></span>
           </summary>
           <p class="ans">Ask the bot for your balance at any time and it will show what you have spent against your cap. It also messages you automatically at about eighty percent, so you are never cut off in the middle of a run without warning.</p>
         </details>
@@ -1873,16 +1881,10 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
     <p class="p rv" style="--d:.06s">One message is enough to get sized and priced. Smallest top-up is $20, nothing recurs, and the balance does not expire.</p>
     <div class="ctas rv" style="--d:.12s">
       <a class="btn btn-lg btn-primary" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Message the bot
-        <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-                stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <span class="arw g-arrow" aria-hidden="true"></span>
       </a>
       <a class="btn btn-lg btn-ghost" href="#pricing">See pricing
-        <svg width="12" height="10" class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
-          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
-                stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <span class="arw g-arrow" aria-hidden="true"></span>
       </a>
     </div>
   </div>
@@ -1932,7 +1934,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
     </div>
 
     <div class="f-base">
-      <span>© <span id="yr">2026</span> Meridian<span class="build">2026-09-17 21:14</span></span>
+      <span>© <span id="yr">2026</span> Meridian<span class="build">2026-09-17 21:40</span></span>
       <span class="links">
         <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Telegram</a>
         <a href="tor.html">Tor build</a>
