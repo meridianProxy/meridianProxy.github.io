@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refund Policy — Meridian</title>
+<meta name="description" content="How Meridian handles refunds and unused balances.">
+<meta name="theme-color" content="#07080c">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="Meridian home">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="ng" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#31d0ff"/>
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="32" r="26" fill="none" stroke="url(#ng)" stroke-width="4"/>
+        <ellipse cx="32" cy="32" rx="11" ry="26" fill="none" stroke="url(#ng)" stroke-width="3"/>
+        <path d="M7 32h50" stroke="url(#ng)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="32" cy="32" r="4.5" fill="#31d0ff"/>
+      </svg>
+      <span>Meridian <em>/ proxy</em></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a class="btn btn-primary btn-sm" href="https://t.me/QuotaPingBot">Get access</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <article class="legal">
+    <h1>Refund Policy</h1>
+    <p class="updated">Last updated: January 2026</p>
+
+    <p>Access to the Service is prepaid and metered. This policy explains what that means in practice before you spend anything.</p>
+
+    <h2>1. Before you buy</h2>
+    <p>The minimum purchase is $20 — a few gigabytes at our rates. It exists so that you can test the network against your real targets before committing to real volume. We do not offer free trials, and we do not consider a paid minimum a trial: it is normal service you keep and spend.</p>
+
+    <h2>2. Balances</h2>
+    <ul>
+      <li>Balances do not expire. You can buy now and use the traffic months later.</li>
+      <li>Balances are held against your account identifier and are not transferable to another account.</li>
+      <li>Because balances do not expire, there is no time pressure to consume them.</li>
+    </ul>
+
+    <h2>3. Traffic already consumed</h2>
+    <p>Traffic that has already passed through the network cannot be refunded. Once gigabytes are delivered, the cost of serving them has been incurred and cannot be recovered.</p>
+
+    <h2>4. Unused balance</h2>
+    <p>Unused balance may be refunded at our discretion on request, less any payment-processing fees incurred on the original transaction. Refunds are issued to the same method and address used for payment where technically possible.</p>
+
+    <h2>5. Service problems</h2>
+    <p>If you experience a sustained failure on our side, contact us before requesting a refund. In most cases the fastest resolution is a credit to your balance rather than a reversal. Credits are applied promptly and without argument where the fault is ours.</p>
+
+    <h2>6. No refund in these cases</h2>
+    <ul>
+      <li>Accounts terminated for breaching the <a href="aup.html">Acceptable Use Policy</a>.</li>
+      <li>Unsuitable results caused by your own integration, targeting choices or tooling.</li>
+      <li>Exit availability in a specific country where you purchased the preferred-country tier, which falls back by design rather than failing.</li>
+      <li>Traffic consumed by a workload you chose to run.</li>
+    </ul>
+
+    <h2>7. Chargebacks and reversals</h2>
+    <p>Raising a payment reversal without contacting us first will result in immediate suspension of the account while the dispute is open. If you have a problem with a payment, message us — it is faster for both of us.</p>
+
+    <h2>8. How to ask</h2>
+    <p>Contact us on <a href="https://t.me/QuotaPingBot">Telegram</a> with your account identifier and the transaction details. Requests are answered in the order received.</p>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <span>© <span id="yr">2026</span> Meridian.</span>
+      <span><a href="index.html">Home</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a> · <a href="aup.html">Acceptable use</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,34 +1,1953 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meridian — Residential Proxy Network</title>
-    <meta
-      name="description"
-      content="Meridian is a residential proxy network. Rotating home IPs, country targeting, sticky sessions, SOCKS5 and HTTPS, billed per gigabyte with no expiry on your balance."
-    />
-    <meta name="theme-color" content="#0a0a0f" />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg fill='none' stroke='%23c8a0e0' stroke-width='2.4'%3E%3Ccircle cx='20' cy='20' r='16'/%3E%3Cellipse cx='20' cy='20' rx='7.2' ry='16'/%3E%3Cpath d='M4 20h32'/%3E%3C/g%3E%3C/svg%3E"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Meridian — Residential Proxy Network" />
-    <meta
-      property="og:description"
-      content="Rotating residential IPs, country targeting, sticky sessions. SOCKS5 and HTTPS, billed per gigabyte."
-    />
-    <meta name="twitter:card" content="summary" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Meridian routes your requests through real residential IPs in the countries you choose, with sticky or rotating sessions on a single endpoint. Prepaid per GB from $20, balances never expire.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Meridian — Residential Proxy Network">
+<meta property="og:description" content="Real residential exits, sticky or rotating sessions, one endpoint. Prepaid per GB from $20, balances never expire.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meridian — Residential Proxy Network">
+<meta name="twitter:description" content="Real residential exits, sticky or rotating sessions, one endpoint. Prepaid per GB from $20.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meridian — Residential Proxy Network</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=block" rel="stylesheet">
+
+<style>
+/* ============================================================
+   2. DESIGN SYSTEM — the reference-pixel unit
+   ============================================================ */
+:root{
+  --u: min(calc(100vw / 1280), calc(100dvh / 760));
+
+  --ink:        #ffffff;
+  --ink-muted:  #ededed;
+  --panel:      #181818;
+  --white-btn:  #fdfdfd;
+  --btn-ink:    #050505;
+  --glass-fill: rgba(0,0,0,.78);
+  --glass-line: rgba(255,255,255,.09);
+
+  --dx: 8.5;    /* hero block optical offset, solved against the reference render */
+  --dy: 13.1;
+
+  --navh: calc(67 * var(--u));
+}
+@supports not (height: 100dvh){
+  :root{ --u: min(calc(100vw / 1280), calc(100vh / 760)); }
+}
+
+*{box-sizing:border-box}
+
+/* scroll is enabled so the expanded page below the hero can be reached;
+   horizontal overflow stays clipped, so there is never a side scrollbar. */
+html,body{margin:0;padding:0;background:#000}
+html{overflow-x:hidden;overflow-x:clip;scroll-behavior:smooth}
+body{overflow-x:hidden;overflow-x:clip}
+
+body{
+  font-family:'PJS','Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+  color:var(--ink);
+}
+
+::selection{background:rgba(167,139,250,.32);color:#fff}
+
+/* ============================================================
+   3. STRUCTURE
+   ============================================================ */
+.hero{
+  position:relative;
+  width:100vw;
+  height:100dvh;
+  overflow:hidden;
+  background:#000;
+}
+@supports not (height: 100dvh){
+  .hero{height:100vh}
+}
+
+/* ============================================================
+   4. VIDEO BACKGROUND
+   ============================================================ */
+/* fixed instead of absolute: the bleed box still covers the viewport exactly,
+   so the hero renders identically — but the globe now stays as the stage for
+   the whole page and is revealed again at the bookend. */
+.bg{
+  position:fixed;left:50%;top:50%;z-index:0;
+  transform:translate(-50%,-50%);
+  width:max(100vw, calc(100dvh * 1.6));
+  height:max(62.5vw, 100dvh);
+  background-color:#000;
+}
+@supports not (height: 100dvh){
+  .bg{width:max(100vw, calc(100vh * 1.6));height:max(62.5vw, 100vh)}
+}
+.bg-video{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:51% 8%;      /* framing inherited from the still it replaces */
+  display:block;
+  background-color:#000;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .9s linear;
+}
+.bg-video.is-active{opacity:1}
+
+/* ============================================================
+   5. NAV (desktop)
+   ============================================================ */
+/* fixed so the same bar serves the expanded page; at scroll 0 it sits at
+   top:0 and is pixel-identical to the reference render. */
+.nav{
+  position:fixed;top:0;left:0;right:0;
+  height:var(--navh);
+  display:flex;align-items:center;
+  padding-left:calc(24.5 * var(--u));
+  padding-right:calc(50.7 * var(--u));
+  z-index:3;
+}
+.nav::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:rgba(8,8,10,.72);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--glass-line);
+  opacity:0;
+  transition:opacity .22s ease;
+  pointer-events:none;
+}
+.nav.is-stuck::after{opacity:1}
+
+.logo{
+  font-weight:800;
+  font-size:calc(26 * var(--u));
+  letter-spacing:calc(0.45 * var(--u));
+  transform:translateY(calc(-2.4 * var(--u)));
+  line-height:1;
+  color:var(--ink);
+  text-decoration:none;
+  white-space:nowrap;
+}
+
+.nav-links{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) translateX(calc(-23 * var(--u)));
+  display:flex;align-items:center;
+  gap:calc(24.3 * var(--u));
+  white-space:nowrap;
+}
+.nav-links a{
+  color:var(--ink-muted);
+  text-decoration:none;
+  font-size:calc(11.5 * var(--u));
+  font-weight:500;
+  letter-spacing:calc(-0.15 * var(--u));
+  line-height:1;
+  transition:color .18s ease;
+}
+.nav-links a:hover{color:#fff}
+
+.nav-actions{
+  margin-left:auto;
+  display:flex;align-items:center;
+  gap:calc(6.8 * var(--u));
+}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:inherit;
+  text-decoration:none;
+  white-space:nowrap;
+  border:0;
+  cursor:pointer;
+}
+
+.btn-login{
+  height:calc(28 * var(--u));
+  padding:0 calc(12.9 * var(--u));
+  border-radius:calc(14 * var(--u));
+  background:var(--panel);
+  color:#e8e8e8;
+  font-size:calc(11.5 * var(--u));
+  font-weight:500;
+  letter-spacing:calc(-0.15 * var(--u));
+  transition:background .18s ease,color .18s ease;
+}
+.btn-login:hover{background:#232323;color:#fff}
+
+.btn-nav-start{
+  height:calc(28 * var(--u));
+  padding-left:calc(13.5 * var(--u));
+  padding-right:calc(14.5 * var(--u));
+  border-radius:calc(14 * var(--u));
+  background:var(--white-btn);
+  color:var(--btn-ink);
+  font-size:calc(11.1 * var(--u));
+  font-weight:500;
+  letter-spacing:0;
+  gap:calc(7 * var(--u));
+  transition:background .18s ease;
+}
+.btn-nav-start:hover{background:#fff}
+.btn-nav-start .arw{width:calc(11.5 * var(--u));height:calc(9.6 * var(--u))}
+
+.burger{
+  display:none;
+  margin-left:auto;
+  width:calc(40 * var(--u));
+  height:calc(28 * var(--u));
+  align-items:center;justify-content:center;
+  background:var(--panel);
+  border-radius:calc(14 * var(--u));
+  border:0;cursor:pointer;padding:0;
+}
+.burger span{
+  display:block;width:16px;height:1.5px;
+  background:#ededed;border-radius:2px;position:relative;
+}
+.burger span::before,
+.burger span::after{
+  content:"";position:absolute;left:0;width:16px;height:1.5px;
+  background:#ededed;border-radius:2px;
+}
+.burger span::before{top:-5px}
+.burger span::after{top:5px}
+
+.arw{flex:0 0 auto;display:block}
+
+/* ============================================================
+   6. HERO CONTENT
+   ============================================================ */
+.hero-inner{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%) translate(calc(var(--dx) * var(--u)), calc(var(--dy) * var(--u)));
+  width:max-content;
+  text-align:center;
+  z-index:2;
+}
+
+h1{
+  margin:0;
+  font-weight:500;
+  font-size:calc(89 * var(--u));
+  line-height:calc(90 * var(--u));
+  letter-spacing:calc(-1 * var(--u));
+  color:var(--ink);
+}
+.ln{display:block}
+.ln-i{display:block}
+
+.sub{
+  margin:calc(16.1 * var(--u)) 0 0;
+  font-weight:300;
+  font-size:calc(17.4 * var(--u));
+  line-height:calc(27 * var(--u));
+  letter-spacing:calc(-0.30 * var(--u));
+  color:#f6f6f6;
+}
+
+.ctas{
+  margin-top:calc(21.8 * var(--u));
+  display:flex;align-items:center;justify-content:center;
+  transform:translateX(calc(-0.75 * var(--u)));
+  gap:calc(7 * var(--u));
+}
+
+.btn-lg{
+  height:calc(39 * var(--u));
+  border-radius:calc(19.5 * var(--u));
+  font-size:calc(13.3 * var(--u));
+  font-weight:500;
+  letter-spacing:calc(-0.3 * var(--u));
+  gap:calc(9 * var(--u));
+}
+.btn-primary{
+  background:var(--white-btn);
+  color:var(--btn-ink);
+  padding-left:calc(18.2 * var(--u));
+  padding-right:calc(19.2 * var(--u));
+  transition:background .18s ease,transform .18s ease;
+}
+.btn-primary:hover{background:#fff}
+.btn-ghost{
+  background:var(--glass-fill);
+  color:#d9d9d9;
+  padding:0 calc(17.4 * var(--u));
+  border:1px solid var(--glass-line);
+  -webkit-backdrop-filter:blur(2px);
+  backdrop-filter:blur(2px);
+  transition:background .18s ease,border-color .18s ease;
+}
+.btn-ghost:hover{
+  background:rgba(0,0,0,.66);
+  border-color:rgba(255,255,255,.16);
+}
+.btn-lg .arw{width:calc(13 * var(--u));height:calc(10.8 * var(--u))}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible{
+  outline:2px solid #a78bfa;
+  outline-offset:3px;
+  border-radius:99px;
+}
+
+/* ============================================================
+   7. MOBILE MENU — resting state
+   ============================================================ */
+.menu{display:none}
+@keyframes menuIn{
+  from{opacity:0;transform:translateY(-6px) scale(.985)}
+  to{opacity:1;transform:none}
+}
+
+/* ============================================================
+   8. BREAKPOINTS
+   ============================================================ */
+/* --- TABLET ------------------------------------------------ */
+@media (max-width:1160px){
+  :root{
+    --u: min(
+      max(0.9px, min(calc(100vw / 1280), calc(100dvh / 760))),
+      calc((100vw - 72px) / 575),
+      calc(100dvh / 620)
+    );
+    --navh: max(58px, calc(67 * var(--u)));
+  }
+  .nav{
+    height:max(58px, calc(67 * var(--u)));
+    padding-left:max(24px, calc(28 * var(--u)));
+    padding-right:max(24px, calc(28 * var(--u)));
+  }
+  .nav-links,
+  .nav-actions{display:none}
+  .burger{
+    display:flex;
+    width:max(46px, calc(48 * var(--u)));
+    height:max(38px, calc(34 * var(--u)));
+    border-radius:999px;
+  }
+  .hero-inner{max-width:calc(100vw - 48px)}
+  .sub{
+    font-size:max(16px, calc(17.4 * var(--u)));
+    line-height:max(25px, calc(27 * var(--u)));
+  }
+  .ctas{
+    margin-top:max(26px, calc(21.8 * var(--u)));
+    gap:max(10px, calc(7 * var(--u)));
+  }
+  .btn-lg{
+    height:max(44px, calc(39 * var(--u)));
+    border-radius:max(22px, calc(19.5 * var(--u)));
+    font-size:max(15px, calc(13.3 * var(--u)));
+    gap:max(10px, calc(9 * var(--u)));
+  }
+  .btn-primary{
+    padding-left:max(21px, calc(18.2 * var(--u)));
+    padding-right:max(22px, calc(19.2 * var(--u)));
+  }
+  .btn-ghost{
+    padding-left:max(20px, calc(17.4 * var(--u)));
+    padding-right:max(21px, calc(18.4 * var(--u)));
+  }
+  .btn-lg .arw{
+    width:max(14px, calc(13 * var(--u)));
+    height:max(11.6px, calc(10.8 * var(--u)));
+  }
+  .menu{
+    position:absolute;
+    top:calc(max(58px, calc(67 * var(--u))) - 6px);
+    right:max(24px, calc(28 * var(--u)));
+    width:min(320px, calc(100vw - 48px));
+    background:rgba(10,10,12,.86);
+    -webkit-backdrop-filter:blur(22px);
+    backdrop-filter:blur(22px);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:20px;
+    padding:10px 8px 12px;
+    flex-direction:column;
+    box-shadow:0 24px 60px rgba(0,0,0,.55);
+    transform-origin:top right;
+    z-index:5;
+  }
+  .menu.open{display:flex;animation:menuIn .18s ease both}
+  .menu a{
+    color:var(--ink-muted);
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+    letter-spacing:calc(-0.15 * var(--u));
+    padding:12px 14px;
+    border-radius:12px;
+    transition:background .18s ease,color .18s ease;
+  }
+  .menu a:hover{background:rgba(255,255,255,.06);color:#fff}
+  .menu .divider{height:1px;background:rgba(255,255,255,.08);margin:8px 14px}
+  .menu .m-start{
+    display:flex;align-items:center;justify-content:center;gap:9px;
+    background:var(--white-btn);
+    color:var(--btn-ink);
+    margin:6px 8px 0;
+    padding:13px 16px;
+    border-radius:14px;
+    font-weight:600;
+  }
+  .menu .m-start:hover{background:#fff;color:var(--btn-ink)}
+  .menu .m-start .arw{width:13px;height:11px}
+}
+
+/* dvh-less fallback for the tablet clamp (kept out of the phone range) */
+@supports not (height: 100dvh){
+  @media (max-width:1160px) and (min-width:553px){
+    :root{
+      --u: min(
+        max(0.9px, min(calc(100vw / 1280), calc(100vh / 760))),
+        calc((100vw - 72px) / 575),
+        calc(100vh / 620)
+      );
+    }
+  }
+}
+
+/* --- MOBILE ------------------------------------------------- */
+@media (max-width:552px){
+  :root{--u:1px;--navh:56px}
+  .nav{height:56px;padding:0 20px}
+  .logo{font-size:22px;letter-spacing:-.4px}
+  .burger{width:42px;height:36px}
+  .hero-inner{
+    position:absolute;left:0;right:0;top:50%;
+    width:auto;max-width:none;
+    padding:0 20px;
+    transform:translateY(-47%);
+  }
+  /* "Residential" ink is ~6.2x the font size; 6.9 leaves headroom at every width */
+  h1{
+    font-size:min(74px, calc((100vw - 44px) / 6.9));
+    line-height:1.04;
+    letter-spacing:-.02em;
+  }
+  .sub{
+    margin-top:16px;
+    font-size:clamp(15.5px, 4vw, 16.5px);
+    line-height:1.6;
+    letter-spacing:0;
+    max-width:42ch;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  .sub br{display:none}
+  .ctas{margin-top:24px;gap:10px;transform:none;flex-wrap:wrap}
+  .btn-lg{height:46px;border-radius:23px;font-size:15px;gap:9px}
+  .btn-primary{padding-left:20px;padding-right:21px}
+  .btn-ghost{padding-left:19px;padding-right:20px}
+  .btn-lg .arw{width:13px;height:11px}
+  .menu{top:50px;left:16px;right:16px;width:auto}
+  .menu a{font-size:15.5px;padding:13px 14px}
+  .menu .m-start{padding:14px 16px}
+}
+
+/* --- NARROW PHONES ------------------------------------------ */
+@media (max-width:353px){
+  .ctas{flex-direction:column;align-items:center}
+  .btn-lg{width:min(100%,272px)}
+}
+
+/* --- SHORT LANDSCAPE --------------------------------------- */
+@media (max-width:552px) and (max-height:460px){
+  h1{font-size:min(44px, calc((100vw - 44px) / 6.9))}
+  .sub{margin-top:12px;font-size:15px;line-height:1.5}
+  .ctas{margin-top:18px}
+  .hero-inner{transform:translateY(-44%)}
+}
+
+/* ============================================================
+   9. ENTRANCE SEQUENCE
+   ============================================================ */
+:root{
+  --e-reveal: cubic-bezier(.16, 1, .3, 1);   /* long, graceful settle */
+  --e-soft:   cubic-bezier(.25, .8, .3, 1);  /* supporting elements   */
+}
+
+/* resting state while fonts resolve — stage lit, cast offstage */
+html.anim .ln{overflow:hidden;padding-top:.26em;margin-top:-.26em}
+html.anim .ln-i{transform:translateY(100%)}
+html.anim .logo,
+html.anim .nav-links a,
+html.anim .nav-actions .btn,
+html.anim .burger,
+html.anim .sub,
+html.anim .ctas .btn{opacity:0}
+
+.ln-i,.logo,.nav-links a,.nav-actions .btn,.sub,.ctas .btn{
+  will-change:transform,opacity;
+}
+
+@keyframes lineRise{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+@keyframes subIn{
+  from{opacity:0;transform:translateY(calc(14 * var(--u)));filter:blur(4px)}
+  to{opacity:1;transform:none;filter:blur(0)}
+}
+@keyframes subInFlat{
+  from{opacity:0;transform:translateY(calc(12 * var(--u)))}
+  to{opacity:1;transform:none}
+}
+@keyframes pillIn{
+  from{opacity:0;transform:translateY(calc(8 * var(--u))) scale(.972)}
+  to{opacity:1;transform:none}
+}
+@keyframes liftIn{
+  from{opacity:0;transform:translateY(calc(9 * var(--u)))}
+  to{opacity:1;transform:none}
+}
+/* the logo carries an authored -2.4u optical offset; the keyframes carry it through
+   so the resting frame is bit-identical */
+@keyframes logoIn{
+  from{opacity:0;transform:translateY(calc(-2.4 * var(--u))) translateY(calc(9 * var(--u)))}
+  to  {opacity:1;transform:translateY(calc(-2.4 * var(--u)))}
+}
+
+html.anim.go .ln-i{animation:lineRise 1.05s var(--e-reveal) both}
+html.anim.go .ln:nth-child(1) .ln-i{animation-delay:.12s}
+html.anim.go .ln:nth-child(2) .ln-i{animation-delay:.22s}
+
+html.anim.go .logo{animation:logoIn .62s var(--e-soft) .46s both}
+
+html.anim.go .nav-links a{animation:liftIn .55s var(--e-soft) both}
+html.anim.go .nav-links a:nth-child(1){animation-delay:.540s}
+html.anim.go .nav-links a:nth-child(2){animation-delay:.585s}
+html.anim.go .nav-links a:nth-child(3){animation-delay:.630s}
+html.anim.go .nav-links a:nth-child(4){animation-delay:.675s}
+html.anim.go .nav-links a:nth-child(5){animation-delay:.720s}
+
+html.anim.go .sub{animation:subIn .85s var(--e-reveal) .58s both}
+
+html.anim.go .btn-login{animation:pillIn .55s var(--e-soft) .68s both}
+html.anim.go .burger{animation:pillIn .55s var(--e-soft) .68s both}
+html.anim.go .btn-nav-start{animation:pillIn .55s var(--e-soft) .73s both}
+
+html.anim.go .ctas .btn-primary{animation:pillIn .70s var(--e-reveal) .90s both}
+html.anim.go .ctas .btn-ghost{animation:pillIn .70s var(--e-reveal) .97s both}
+
+/* mobile: same language, restrained — drop the focus pull */
+@media (max-width:552px){
+  html.anim.go .sub{animation-name:subInFlat}
+  html.anim.go .ln-i{animation-duration:.92s}
+  html.anim.go .ctas .btn-primary{animation-delay:.84s}
+  html.anim.go .ctas .btn-ghost{animation-delay:.90s}
+}
+
+/* reduced motion — belt and braces alongside the script's own opt-out */
+@media (prefers-reduced-motion:reduce){
+  html.anim .ln{overflow:visible;padding-top:0;margin-top:0}
+  html.anim .ln-i{transform:none}
+  html.anim .logo,
+  html.anim .nav-links a,
+  html.anim .nav-actions .btn,
+  html.anim .burger,
+  html.anim .sub,
+  html.anim .ctas .btn{opacity:1}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+
+/* ============================================================
+   10. SITE FLOW — the expanded page
+   Authored on the same grid as the hero: --us is the flow unit
+   (identical to --u at 1280x800), decoupled from viewport height
+   so scrolling never reflows the composition.
+   ============================================================ */
+:root{
+  --us: clamp(0.86px, calc(100vw / 1280), 1.3px);
+  --gut: calc(50 * var(--us));
+
+  --accent: #a78bfa;
+  --accent-soft: rgba(167,139,250,.14);
+  --line: rgba(255,255,255,.075);
+  --card: #131315;
+  --card-hi: #1a1a1c;
+  --body: #c9c9cf;
+  --muted: #8e8e97;
+}
+
+/* hero → content transition: the globe dissolves into the page */
+.veil{
+  position:relative;z-index:1;
+  height:46vh;
+  background:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,.55) 42%, #000 78%);
+  pointer-events:none;
+}
+
+.sect{
+  position:relative;z-index:1;
+  background:#000;
+  padding:calc(112 * var(--us)) 0;
+  scroll-margin-top:calc(var(--navh) + 24px);
+}
+.sect.tight{padding:calc(62 * var(--us)) 0}
+.wrap{
+  width:100%;
+  max-width:calc(1280 * var(--us));
+  margin:0 auto;
+  padding:0 var(--gut);
+}
+
+/* --- section type ------------------------------------------ */
+.eb{
+  display:inline-block;
+  margin:0 0 calc(20 * var(--us));
+  font-size:calc(11 * var(--us));
+  font-weight:600;
+  letter-spacing:calc(1.35 * var(--us));
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.h2{
+  margin:0;
+  font-weight:500;
+  font-size:calc(46 * var(--us));
+  line-height:1.08;
+  letter-spacing:calc(-1.2 * var(--us));
+  color:var(--ink);
+}
+.h3{
+  margin:0;
+  font-weight:600;
+  font-size:calc(17.4 * var(--us));
+  line-height:1.3;
+  letter-spacing:calc(-0.3 * var(--us));
+  color:var(--ink);
+}
+.p{
+  margin:calc(18 * var(--us)) 0 0;
+  font-weight:300;
+  font-size:calc(16.4 * var(--us));
+  line-height:1.62;
+  letter-spacing:calc(-0.2 * var(--us));
+  color:var(--body);
+}
+.p.sm{font-size:calc(14.4 * var(--us));line-height:1.6;color:var(--muted)}
+.head{max-width:calc(700 * var(--us))}
+.head.center{margin:0 auto;text-align:center}
+.head.center .p{margin-left:auto;margin-right:auto}
+
+/* --- scroll reveal (same vocabulary as the entrance) -------- */
+@keyframes rvUp{
+  from{opacity:0;transform:translateY(calc(16 * var(--us)))}
+  to{opacity:1;transform:none}
+}
+@keyframes rvFade{
+  from{opacity:0}
+  to{opacity:1}
+}
+html.js-rev .rv{opacity:0}
+html.js-rev .rv.in{
+  opacity:1;
+  animation-name:rvUp;
+  animation-duration:.72s;
+  animation-timing-function:var(--e-soft);
+  animation-delay:var(--d,0s);
+  animation-fill-mode:backwards; /* unlocks hover transforms when it ends */
+}
+html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
+
+/* --- trust marquee ----------------------------------------- */
+.trust-label{
+  margin:0 0 calc(26 * var(--us));
+  text-align:center;
+  font-size:calc(12.4 * var(--us));
+  font-weight:400;
+  letter-spacing:calc(-0.1 * var(--us));
+  color:var(--muted);
+}
+.marquee{
+  overflow:hidden;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
+}
+.marquee-track{
+  display:flex;width:max-content;
+  animation:marquee 46s linear infinite;
+}
+.marquee-track > span{
+  margin-right:calc(74 * var(--us));
+  font-size:calc(17 * var(--us));
+  font-weight:700;
+  letter-spacing:calc(-0.4 * var(--us));
+  color:#fff;
+  opacity:.3;
+  white-space:nowrap;
+}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* --- stats band -------------------------------------------- */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.stat{
+  padding:calc(40 * var(--us)) calc(30 * var(--us));
+  border-left:1px solid var(--line);
+}
+.stat:first-child{border-left:0;padding-left:0}
+.stat:last-child{padding-right:0}
+.stat b{
+  display:block;
+  font-size:calc(46 * var(--us));
+  font-weight:500;
+  line-height:1;
+  letter-spacing:calc(-1.4 * var(--us));
+  color:#fff;
+}
+.stat span{
+  display:block;
+  margin-top:calc(11 * var(--us));
+  font-size:calc(12.8 * var(--us));
+  font-weight:400;
+  letter-spacing:calc(-0.1 * var(--us));
+  color:var(--muted);
+}
+
+/* --- generic grids ----------------------------------------- */
+.grid{display:grid;gap:calc(16 * var(--us))}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.split{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:calc(84 * var(--us));
+  align-items:start;
+}
+
+/* --- cards -------------------------------------------------- */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:calc(20 * var(--us));
+  padding:calc(30 * var(--us));
+  transition:transform .25s var(--e-soft),border-color .18s ease,background .18s ease;
+}
+.card:hover{
+  transform:translateY(calc(-3 * var(--us)));
+  border-color:rgba(255,255,255,.14);
+  background:var(--card-hi);
+}
+.card p{
+  margin:calc(11 * var(--us)) 0 0;
+  font-weight:300;
+  font-size:calc(14.6 * var(--us));
+  line-height:1.62;
+  letter-spacing:calc(-0.1 * var(--us));
+  color:#a9a9b1;
+}
+.card .ico{
+  display:flex;align-items:center;justify-content:center;
+  width:calc(34 * var(--us));height:calc(34 * var(--us));
+  margin-bottom:calc(20 * var(--us));
+  border-radius:calc(11 * var(--us));
+  background:var(--accent-soft);
+  color:var(--accent);
+}
+.card .ico svg{width:calc(16 * var(--us));height:calc(16 * var(--us));display:block}
+
+/* --- steps -------------------------------------------------- */
+.steps{
+  list-style:none;
+  margin:0;padding:0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:calc(48 * var(--us));
+}
+.steps li{padding-top:calc(28 * var(--us));border-top:1px solid var(--line)}
+.steps .num{
+  display:block;
+  margin-bottom:calc(18 * var(--us));
+  font-size:calc(12.4 * var(--us));
+  font-weight:600;
+  letter-spacing:calc(1.1 * var(--us));
+  color:var(--accent);
+}
+.steps p{
+  margin:calc(12 * var(--us)) 0 0;
+  font-weight:300;
+  font-size:calc(14.8 * var(--us));
+  line-height:1.62;
+  color:#a9a9b1;
+}
+
+/* --- coverage ---------------------------------------------- */
+.regions{
+  list-style:none;margin:0;padding:0;
+  border-top:1px solid var(--line);
+}
+.regions li{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:calc(24 * var(--us));
+  padding:calc(19 * var(--us)) 0;
+  border-bottom:1px solid var(--line);
+  transition:padding-left .25s var(--e-soft);
+}
+.regions li:hover{padding-left:calc(8 * var(--us))}
+.regions .rg-name{
+  display:flex;align-items:center;gap:calc(12 * var(--us));
+  font-size:calc(15.4 * var(--us));
+  font-weight:500;
+  letter-spacing:calc(-0.2 * var(--us));
+  color:#f0f0f2;
+}
+.regions .dot{
+  width:calc(6 * var(--us));height:calc(6 * var(--us));
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 calc(9 * var(--us)) rgba(167,139,250,.85);
+  flex:0 0 auto;
+}
+.regions .rg-val{
+  font-size:calc(14 * var(--us));
+  font-weight:400;
+  letter-spacing:calc(-0.2 * var(--us));
+  color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+.note{
+  margin-top:calc(26 * var(--us));
+  font-size:calc(13.4 * var(--us));
+  font-weight:300;
+  line-height:1.6;
+  color:#7d7d86;
+}
+
+/* --- developer / code -------------------------------------- */
+.tabs{display:flex;gap:calc(4 * var(--us));margin-bottom:calc(14 * var(--us))}
+.tab{
+  font-family:inherit;
+  font-size:calc(12.4 * var(--us));
+  font-weight:500;
+  letter-spacing:calc(-0.15 * var(--us));
+  color:#9d9da6;
+  background:transparent;
+  border:0;
+  padding:calc(8 * var(--us)) calc(14 * var(--us));
+  border-radius:calc(9 * var(--us));
+  cursor:pointer;
+  transition:background .18s ease,color .18s ease;
+}
+.tab:hover{background:rgba(255,255,255,.05);color:#fff}
+.tab.is-on{background:var(--panel);color:#fff}
+
+.panels{
+  background:#0b0b0d;
+  border:1px solid var(--line);
+  border-radius:calc(16 * var(--us));
+  overflow:hidden;
+  min-height:calc(248 * var(--us));
+}
+.preview{display:none}
+.preview.is-on{display:block}
+pre{
+  margin:0;
+  padding:calc(24 * var(--us));
+  overflow-x:auto;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+  font-size:calc(12.4 * var(--us));
+  line-height:1.85;
+  letter-spacing:0;
+  color:#d8d8de;
+  -webkit-overflow-scrolling:touch;
+}
+pre::-webkit-scrollbar{height:6px}
+pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+.c-cm{color:#63636f}
+.c-ac{color:#a78bfa}
+.c-st{color:#e9e9ef}
+.c-dim{color:#8b8b96}
+
+.cap{
+  list-style:none;margin:calc(30 * var(--us)) 0 0;padding:0;
+}
+.cap li{
+  display:flex;align-items:flex-start;gap:calc(11 * var(--us));
+  padding:calc(11 * var(--us)) 0;
+  font-size:calc(14.4 * var(--us));
+  font-weight:400;
+  letter-spacing:calc(-0.15 * var(--us));
+  color:#c2c2ca;
+  border-bottom:1px solid var(--line);
+}
+.cap svg{width:calc(13 * var(--us));height:calc(13 * var(--us));margin-top:calc(5 * var(--us));color:var(--accent);flex:0 0 auto}
+
+/* --- pricing ------------------------------------------------ */
+.pricing{margin-top:calc(56 * var(--us))}
+.price{
+  position:relative;
+  display:flex;flex-direction:column;
+}
+.price.is-feat{
+  background:linear-gradient(180deg,#1a1a1e,#121214);
+  border-color:rgba(167,139,250,.34);
+}
+.price.is-feat:hover{border-color:rgba(167,139,250,.5)}
+.price .badge{
+  position:absolute;top:calc(-11 * var(--us));left:calc(30 * var(--us));
+  font-size:calc(10.4 * var(--us));
+  font-weight:600;
+  letter-spacing:calc(1 * var(--us));
+  text-transform:uppercase;
+  color:#0c0a14;
+  background:var(--accent);
+  padding:calc(5 * var(--us)) calc(10 * var(--us));
+  border-radius:99px;
+}
+.price .h3{margin-top:calc(4 * var(--us))}
+.price-line{
+  display:flex;align-items:baseline;gap:calc(6 * var(--us));
+  margin:calc(18 * var(--us)) 0 0;
+}
+.price-line b{
+  font-size:calc(42 * var(--us));
+  font-weight:500;
+  line-height:1;
+  letter-spacing:calc(-1.4 * var(--us));
+  color:#fff;
+}
+.price-line span{
+  font-size:calc(13.6 * var(--us));
+  font-weight:400;
+  color:var(--muted);
+}
+.ticks{
+  list-style:none;
+  margin:calc(26 * var(--us)) 0 calc(30 * var(--us));
+  padding:0;
+  border-top:1px solid var(--line);
+  flex:1;
+}
+.ticks li{
+  display:flex;align-items:flex-start;gap:calc(11 * var(--us));
+  padding:calc(10 * var(--us)) 0;
+  font-size:calc(14 * var(--us));
+  font-weight:400;
+  letter-spacing:calc(-0.15 * var(--us));
+  color:#c2c2ca;
+}
+.ticks svg{width:calc(12 * var(--us));height:calc(12 * var(--us));margin-top:calc(5 * var(--us));color:var(--accent);flex:0 0 auto}
+.price .btn{width:100%}
+
+/* buttons inside the flow are authored on --us, not --u */
+.sect .btn-lg{
+  height:calc(42 * var(--us));
+  border-radius:calc(21 * var(--us));
+  font-size:calc(14 * var(--us));
+  gap:calc(9 * var(--us));
+  padding-left:calc(20 * var(--us));
+  padding-right:calc(22 * var(--us));
+}
+.sect .btn-lg .arw{width:calc(13.6 * var(--us));height:calc(11.3 * var(--us))}
+
+/* --- voices ------------------------------------------------- */
+.voice q{
+  display:block;
+  font-weight:300;
+  font-size:calc(16 * var(--us));
+  line-height:1.6;
+  letter-spacing:calc(-0.2 * var(--us));
+  color:#e6e6ea;
+  quotes:"“" "”";
+}
+.voice .who{
+  margin-top:calc(24 * var(--us));
+  padding-top:calc(20 * var(--us));
+  border-top:1px solid var(--line);
+  font-size:calc(13.6 * var(--us));
+  font-weight:600;
+  letter-spacing:calc(-0.15 * var(--us));
+  color:#fff;
+}
+.voice .role{
+  margin-top:calc(5 * var(--us));
+  font-size:calc(12.8 * var(--us));
+  font-weight:400;
+  color:var(--muted);
+}
+
+/* --- faq ---------------------------------------------------- */
+.faq-head{position:sticky;top:calc(var(--navh) + 48px)}
+.faq-list{border-top:1px solid var(--line)}
+.faq-list details{border-bottom:1px solid var(--line)}
+.faq-list summary{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:calc(24 * var(--us));
+  padding:calc(23 * var(--us)) 0;
+  cursor:pointer;
+  list-style:none;
+  font-size:calc(16 * var(--us));
+  font-weight:500;
+  letter-spacing:calc(-0.25 * var(--us));
+  color:#f2f2f4;
+  transition:color .18s ease;
+}
+.faq-list summary:hover{color:#fff}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::marker{content:""}
+.chev{
+  width:calc(12 * var(--us));height:calc(8 * var(--us));
+  flex:0 0 auto;color:#7d7d86;
+  transition:transform .22s var(--e-soft),color .18s ease;
+}
+.faq-list details[open] .chev{transform:rotate(180deg);color:var(--accent)}
+.faq-list .ans{
+  margin:0;
+  padding:0 calc(48 * var(--us)) calc(26 * var(--us)) 0;
+  font-weight:300;
+  font-size:calc(15 * var(--us));
+  line-height:1.68;
+  color:#a9a9b1;
+}
+
+/* --- bookend CTA + footer (the globe returns) --------------- */
+.cta-final{
+  padding:calc(168 * var(--us)) 0 calc(132 * var(--us));
+  text-align:center;
+  background:linear-gradient(to bottom, #000 0%, rgba(0,0,0,.86) 30%, rgba(0,0,0,.86) 100%);
+}
+.cta-final::before{
+  content:"";
+  position:absolute;inset:0;
+  background:radial-gradient(58% 68% at 50% 56%, rgba(0,0,0,.72), rgba(0,0,0,0) 72%);
+  pointer-events:none;
+}
+.cta-final .wrap{position:relative}
+.cta-final .h2{font-size:calc(56 * var(--us));letter-spacing:calc(-1.5 * var(--us))}
+.cta-final .p{max-width:calc(560 * var(--us));margin-left:auto;margin-right:auto}
+.cta-final .ctas{
+  margin-top:calc(34 * var(--us));
+  transform:none;
+  display:flex;justify-content:center;gap:calc(9 * var(--us));
+  flex-wrap:wrap;
+}
+
+.footer{
+  position:relative;z-index:1;
+  background:linear-gradient(to bottom, rgba(0,0,0,.86), rgba(0,0,0,.96));
+  border-top:1px solid var(--line);
+  padding:calc(76 * var(--us)) 0 calc(40 * var(--us));
+}
+.footer-grid{
+  display:grid;
+  grid-template-columns:1.7fr 1fr 1fr 1fr 1fr;
+  gap:calc(40 * var(--us));
+}
+.f-brand .logo{display:inline-block;font-size:calc(24 * var(--us));letter-spacing:calc(0.4 * var(--us))}
+.f-brand p{
+  margin:calc(18 * var(--us)) 0 0;
+  max-width:calc(280 * var(--us));
+  font-weight:300;
+  font-size:calc(14 * var(--us));
+  line-height:1.62;
+  color:#8e8e97;
+}
+.status{
+  display:inline-flex;align-items:center;gap:calc(8 * var(--us));
+  margin-top:calc(22 * var(--us));
+  font-size:calc(12.6 * var(--us));
+  font-weight:500;
+  color:#b7b7c0;
+}
+.status i{
+  width:calc(6 * var(--us));height:calc(6 * var(--us));
+  border-radius:50%;background:var(--accent);
+  box-shadow:0 0 calc(8 * var(--us)) rgba(167,139,250,.8);
+}
+.f-col h4{
+  margin:0 0 calc(16 * var(--us));
+  font-size:calc(11.6 * var(--us));
+  font-weight:600;
+  letter-spacing:calc(0.9 * var(--us));
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+}
+.f-col a{
+  display:block;
+  padding:calc(6.5 * var(--us)) 0;
+  font-size:calc(14.2 * var(--us));
+  font-weight:400;
+  letter-spacing:calc(-0.15 * var(--us));
+  color:#b9b9c1;
+  text-decoration:none;
+  transition:color .18s ease;
+}
+.f-col a:hover{color:#fff}
+.f-base{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:calc(24 * var(--us));
+  flex-wrap:wrap;
+  margin-top:calc(64 * var(--us));
+  padding-top:calc(26 * var(--us));
+  border-top:1px solid var(--line);
+  font-size:calc(13 * var(--us));
+  font-weight:400;
+  color:#7d7d86;
+}
+.f-base .links{display:flex;gap:calc(22 * var(--us));flex-wrap:wrap}
+.f-base a{color:#9d9da6;text-decoration:none;transition:color .18s ease}
+.f-base a:hover{color:#fff}
+.f-legal{
+  margin-top:calc(20 * var(--us));
+  font-size:calc(12.4 * var(--us));
+  font-weight:300;
+  line-height:1.6;
+  color:#5f5f67;
+  max-width:calc(760 * var(--us));
+}
+
+/* the menu is anchored under a fixed bar, so it is fixed too */
+.menu{position:fixed}
+
+/* --- FLOW BREAKPOINTS --------------------------------------- */
+@media (max-width:1160px){
+  :root{--gut:clamp(22px, 5.2vw, 46px)}
+  .sect{padding:clamp(66px, 9vw, 96px) 0}
+  .sect.tight{padding:clamp(44px, 6vw, 60px) 0}
+  .h2{font-size:clamp(28px, 4.7vw, 43px);letter-spacing:-.03em}
+  .p{font-size:clamp(15px, 1.7vw, 16.4px)}
+  .grid-3{grid-template-columns:repeat(2,1fr)}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat{padding:clamp(26px, 4vw, 40px) clamp(18px, 3vw, 30px)}
+  .stat:nth-child(odd){border-left:0;padding-left:0}
+  .stat:nth-child(even){padding-right:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+  .stat b{font-size:clamp(30px, 4.6vw, 44px)}
+  .steps{grid-template-columns:1fr;gap:clamp(28px, 4vw, 40px)}
+  .split{grid-template-columns:1fr;gap:clamp(40px, 6vw, 64px)}
+  .faq-head{position:static}
+  .footer-grid{grid-template-columns:1fr 1fr 1fr;gap:34px}
+  .f-brand{grid-column:1/-1}
+  .cta-final{padding:clamp(96px, 13vw, 150px) 0 clamp(72px, 10vw, 120px)}
+  .cta-final .h2{font-size:clamp(30px, 5.6vw, 52px);letter-spacing:-.03em}
+  .panels{min-height:0}
+}
+
+@media (max-width:552px){
+  :root{--us:1px;--gut:20px}
+  .veil{height:34vh}
+  .sect{padding:58px 0}
+  .sect.tight{padding:40px 0}
+  .h2{font-size:clamp(27px, 7.4vw, 33px);line-height:1.12}
+  .h3{font-size:16.5px}
+  .p{font-size:15.5px;line-height:1.62}
+  .eb{margin-bottom:15px;font-size:10.5px;letter-spacing:1.4px}
+  .grid-3,.grid-2{grid-template-columns:1fr}
+  .card{padding:24px;border-radius:18px}
+  .stats{grid-template-columns:1fr}
+  .stat,
+  .stat:nth-child(odd),
+  .stat:nth-child(even){padding:22px 0;border-left:0}
+  .stat:nth-child(n+2){border-top:1px solid var(--line)}
+  .stat b{font-size:34px}
+  .trust-label{font-size:13px}
+  .marquee-track > span{margin-right:48px;font-size:16px}
+  .regions li{padding:16px 0}
+  .regions .rg-name{font-size:15px}
+  .regions .rg-val{font-size:13.5px}
+  .cap li,.ticks li,.voice q{font-size:14.5px}
+  .voice q{font-size:15.5px}
+  .faq-list summary{font-size:15.5px;padding:19px 0}
+  .faq-list .ans{font-size:14.5px;padding:0 0 22px 0}
+  .cta-final{padding:84px 0 68px}
+  .cta-final .h2{font-size:clamp(27px, 7.4vw, 33px);line-height:1.12}
+  .cta-final .ctas{flex-direction:column;align-items:stretch;margin-top:28px}
+  .cta-final .ctas .btn{width:100%}
+  .footer{padding:56px 0 32px}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .f-base{margin-top:44px;font-size:12.5px}
+  pre{font-size:11.6px;padding:18px;line-height:1.75}
+  .tab{font-size:12px;padding:8px 12px}
+  .sect .btn-lg{height:46px;border-radius:23px;font-size:15px}
+}
+
+@media (max-width:353px){
+  .cta-final .ctas .btn{width:min(100%,272px);margin:0 auto}
+  .footer-grid{grid-template-columns:1fr}
+}
+</style>
+
+<script>
+/* A) ENTRANCE + reveal arming — synchronous, so nothing flashes unanimated */
+(function(){
+  var root = document.documentElement;
+
+  try{
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  }catch(e){}
+
+  root.classList.add('anim');   /* hero entrance */
+  root.classList.add('js-rev'); /* down-page reveals */
+
+  var started = false, cleaned = false, bootTimer = null, safetyTimer = null;
+
+  function clean(){
+    if (cleaned) return;
+    cleaned = true;
+    if (bootTimer) { clearTimeout(bootTimer); bootTimer = null; }
+    if (safetyTimer) { clearTimeout(safetyTimer); safetyTimer = null; }
+    document.removeEventListener('animationend', onEnd, true);
+    root.classList.remove('anim');
+    root.classList.remove('go');
+  }
+
+  function onEnd(e){
+    if (e.animationName === 'pillIn' &&
+        e.target && e.target.classList &&
+        e.target.classList.contains('btn-ghost')) {
+      clean();
+    }
+  }
+
+  function start(){
+    if (started) return;
+    started = true;
+    if (bootTimer) { clearTimeout(bootTimer); bootTimer = null; }
+    document.addEventListener('animationend', onEnd, true);
+    safetyTimer = setTimeout(clean, 2600);
+    root.classList.add('go');
+  }
+
+  function boot(){
+    bootTimer = setTimeout(start, 900);       /* ceiling */
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+      document.fonts.ready.then(start, start); /* never reveal against invisible text */
+    } else {
+      start();
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+</head>
+
+<body>
+
+<header class="nav">
+  <a class="logo" href="#top">Meridian</a>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#features">Proxies</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#developers">Developers</a>
+    <a href="#coverage">Targeting</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <div class="nav-actions">
+    <a class="btn btn-login" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Redeem a code</a>
+    <a class="btn btn-nav-start" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get started
+      <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+        <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+              stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </div>
+
+  <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+</header>
+
+<nav class="menu" id="menu" aria-label="Mobile">
+  <a href="#features">Proxies</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#developers">Developers</a>
+  <a href="#coverage">Targeting</a>
+  <a href="#faq">FAQ</a>
+  <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Contact</a>
+  <div class="divider"></div>
+  <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Redeem a code</a>
+  <a class="m-start" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get started
+    <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+      <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+            stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</nav>
+
+<main class="hero" id="top">
+
+  <div class="bg" role="img" aria-label="Stylised globe of Earth rendered as a purple dot matrix against a starfield, slowly rotating">
+    <video class="bg-video is-active" id="bgVideoA" autoplay muted loop playsinline
+           preload="auto" disablepictureinpicture aria-hidden="true"
+           poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/82e7eb75-c65f-490a-99b5-f3d1cad54200.webp">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260912_104036_bd6924f6-3c8e-417e-8465-6d03c8c2e9e6.mp4" type="video/mp4">
+    </video>
+    <video class="bg-video" id="bgVideoB" muted loop playsinline
+           preload="auto" disablepictureinpicture aria-hidden="true"
+           poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/82e7eb75-c65f-490a-99b5-f3d1cad54200.webp">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260912_104036_bd6924f6-3c8e-417e-8465-6d03c8c2e9e6.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="hero-inner">
+    <h1><span class="ln"><span class="ln-i">Residential</span></span><span class="ln"><span class="ln-i">proxies</span></span></h1>
+
+    <p class="sub">Route requests through real residential exits in the countries you choose,<br>
+    pin a session or rotate on every request, and run it all through a single endpoint<br>
+    with one set of credentials.</p>
+
+    <div class="ctas">
+      <a class="btn btn-lg btn-primary" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get started
+        <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+                stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="btn btn-lg btn-ghost" href="#pricing">See pricing
+        <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+                stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<!-- hero dissolves into the page -->
+<div class="veil" aria-hidden="true"></div>
+
+<!-- ============================ STRIP ============================ -->
+<section class="sect tight" aria-labelledby="trust-h">
+  <div class="wrap">
+    <h2 class="trust-label rv fade" id="trust-h">What you get</h2>
+    <div class="marquee">
+      <div class="marquee-track" aria-hidden="true">
+        <span>Real residential exits</span><span>Rotating &amp; sticky sessions</span><span>HTTP, HTTPS &amp; SOCKS5</span><span>Prepaid per GB</span>
+        <span>Balances never expire</span><span>No minimum term</span><span>Direct line to the operator</span><span>Set up in minutes</span>
+        <span>Real residential exits</span><span>Rotating &amp; sticky sessions</span><span>HTTP, HTTPS &amp; SOCKS5</span><span>Prepaid per GB</span>
+        <span>Balances never expire</span><span>No minimum term</span><span>Direct line to the operator</span><span>Set up in minutes</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ STATS ============================ -->
+<section class="sect tight" aria-label="At a glance">
+  <div class="wrap">
+    <div class="stats rv">
+      <div class="stat"><b>HTTP/SOCKS5</b><span>One endpoint, one credential</span></div>
+      <div class="stat"><b>Rotating</b><span>Or sticky sessions</span></div>
+      <div class="stat"><b>Per&nbsp;GB</b><span>Prepaid, never expires</span></div>
+      <div class="stat"><b>$20</b><span>Minimum purchase</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== FEATURES ========================== -->
+<section class="sect" id="features" aria-labelledby="features-h">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eb">The network</span>
+      <h2 class="h2" id="features-h">Residential IPs that behave like real people, because they are.</h2>
+      <p class="p">Every exit is a genuine household connection on a real consumer ISP. No datacentre ranges, no recycled subnets, no fingerprints that give the game away at the first challenge.</p>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:calc(64 * var(--us))">
+
+      <article class="card rv" style="--d:0s">
+        <span class="ico"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.2" stroke="currentColor" stroke-width="1.3"/><path d="M1.8 8h12.4M8 1.8c1.7 1.9 2.6 4 2.6 6.2S9.7 12.3 8 14.2C6.3 12.3 5.4 10.2 5.4 8S6.3 3.7 8 1.8Z" stroke="currentColor" stroke-width="1.3"/></svg></span>
+        <h3 class="h3">Targeting by country and city</h3>
+        <p>Address your request by country, region or city, all expressed in the username. No separate endpoint, no separate port, no configuration change.</p>
+      </article>
+
+      <article class="card rv" style="--d:.06s">
+        <span class="ico"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.2" stroke="currentColor" stroke-width="1.3"/><path d="M8 4.6V8l2.4 1.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        <h3 class="h3">Sticky or rotating</h3>
+        <p>Hold the same residential exit for up to an hour, or rotate on every single request. You decide per session, with no configuration change.</p>
+      </article>
+
+      <article class="card rv" style="--d:.12s">
+        <span class="ico"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 5.4h12M2 10.6h12M5.4 2v12M10.6 2v12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        <h3 class="h3">No thread caps</h3>
+        <p>No device limits and no per-port allocation. Open as many parallel sessions as your own infrastructure can carry.</p>
+      </article>
+
+      <article class="card rv" style="--d:0s">
+        <span class="ico"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5.6 4.2 2 8l3.6 3.8M10.4 4.2 14 8l-3.6 3.8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3 class="h3">HTTP, HTTPS &amp; SOCKS5</h3>
+        <p>One gateway, three protocols. Drop-in compatible with Playwright, Puppeteer, Selenium, requests, Go and plain curl.</p>
+      </article>
+
+      <article class="card rv" style="--d:.06s">
+        <span class="ico"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 11.4 6 7.2l2.8 2.6L14 4.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.4 4.6H14v3.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h3 class="h3">Automatic retry</h3>
+        <p>If a peer drops mid-request, the gateway retries across the pool at no extra cost rather than handing you the failure.</p>
+      </article>
+
+      <article class="card rv" style="--d:.12s">
+        <span class="ico"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="2.2" y="3.2" width="11.6" height="9.6" rx="2.2" stroke="currentColor" stroke-width="1.3"/><path d="M2.2 6.6h11.6M5.4 10.2h2.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+        <h3 class="h3">Usage you can check</h3>
+        <p>Ask the bot for your balance and traffic at any time. Prepaid, billed per gigabyte, and it never expires.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================= HOW IT WORKS ======================== -->
+<section class="sect" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="head rv">
+      <span class="eb">How it works</span>
+      <h2 class="h2" id="how-h">Set up in three steps.</h2>
+    </div>
+
+    <ol class="steps" style="margin-top:calc(60 * var(--us))">
+      <li class="rv" style="--d:0s">
+        <span class="num">01 — GET ACCESS</span>
+        <h3 class="h3">Tell us what you're running</h3>
+        <p>Message the bot with roughly what you're running and how many gigabytes a month you expect. You get an account sized to that, not a tier you have to grow into.</p>
+      </li>
+      <li class="rv" style="--d:.07s">
+        <span class="num">02 — TOP UP</span>
+        <h3 class="h3">Prepaid, from $20</h3>
+        <p>You pay for bandwidth up front and it is billed per gigabyte as you use it. The balance never expires, so a quiet month costs you nothing.</p>
+      </li>
+      <li class="rv" style="--d:.14s">
+        <span class="num">03 — CONNECT</span>
+        <h3 class="h3">Point your client at your endpoint</h3>
+        <p>Swap the proxy URL and you are done. Traffic egresses from real consumer devices, and your usage shows up in the bot in real time.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ========================== COVERAGE =========================== -->
+<section class="sect" id="coverage" aria-labelledby="coverage-h">
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <span class="eb">Targeting</span>
+        <h2 class="h2" id="coverage-h">Real addresses, in the places that matter.</h2>
+        <p class="p">Pools are first-party. Addresses rotate continuously, and any exit can be retired from the pool on request.</p>
+        <p class="note">Every address is checked for reachability before it enters rotation and re-checked while it is in use. Peers that stop answering are pulled automatically.</p>
+      </div>
+
+      <div class="rv" style="--d:.08s">
+        <ul class="regions">
+          <li><span class="rg-name"><i class="dot"></i>Country targeting</span><span class="rg-val">Any country in the pool</span></li>
+          <li><span class="rg-name"><i class="dot"></i>City targeting</span><span class="rg-val">Where available</span></li>
+          <li><span class="rg-name"><i class="dot"></i>Session control</span><span class="rg-val">Sticky or per-request</span></li>
+          <li><span class="rg-name"><i class="dot"></i>Protocols</span><span class="rg-val">HTTP, HTTPS, SOCKS5</span></li>
+          <li><span class="rg-name"><i class="dot"></i>Authentication</span><span class="rg-val">Username based</span></li>
+          <li><span class="rg-name"><i class="dot"></i>Peer failure</span><span class="rg-val">Automatic retry</span></li>
+        </ul>
+        <p class="note">Coverage grows as the network does. Ask the bot for the current country list before you commit.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= DEVELOPERS ========================== -->
+<section class="sect" id="developers" aria-labelledby="dev-h">
+  <div class="wrap">
+    <div class="split">
+      <div class="rv">
+        <span class="eb">Developers</span>
+        <h2 class="h2" id="dev-h">One endpoint. Any language.</h2>
+        <p class="p">Authenticate once with the credentials you're issued, then route everything through your endpoint. Your endpoint and credentials are handed over when your account is provisioned — they aren't published here.</p>
+
+        <ul class="cap">
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Rotating and sticky sessions on the same port</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>IPv4 residential exits</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Traffic caps on the account, visible in the bot</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>SOCKS5 for UDP and non-HTTP workloads</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Works with any HTTP client, no SDK required</li>
+        </ul>
+      </div>
+
+      <div class="rv" style="--d:.08s">
+        <div class="tabs" role="tablist" aria-label="Code examples" data-tabs>
+          <button class="tab is-on" type="button" role="tab" id="tab-curl" aria-controls="panel-curl" aria-selected="true">cURL</button>
+          <button class="tab" type="button" role="tab" id="tab-py" aria-controls="panel-py" aria-selected="false" tabindex="-1">Python</button>
+          <button class="tab" type="button" role="tab" id="tab-node" aria-controls="panel-node" aria-selected="false" tabindex="-1">Node</button>
+        </div>
+
+        <div class="panels">
+          <div class="preview is-on" role="tabpanel" id="panel-curl" aria-labelledby="tab-curl">
+<pre><span class="c-cm"># rotate the exit IP on every request</span>
+curl -x <span class="c-ac">http://USER:PASS@YOUR-ENDPOINT:8000</span> \
+     https://api.ipify.org
+
+<span class="c-cm"># pin one exit for ten minutes</span>
+curl -x <span class="c-ac">http://USER-country-us-session-a41f:PASS@YOUR-ENDPOINT:8000</span> \
+     https://api.ipify.org</pre>
+          </div>
+
+          <div class="preview" role="tabpanel" id="panel-py" aria-labelledby="tab-py" hidden>
+<pre><span class="c-cm">import</span> requests
+
+proxy = <span class="c-st">"http://USER-country-de-session-a41f:PASS@YOUR-ENDPOINT:8000"</span>
+
+r = requests.get(
+    <span class="c-st">"https://api.ipify.org?format=json"</span>,
+    proxies={<span class="c-st">"http"</span>: proxy, <span class="c-st">"https"</span>: proxy},
+    timeout=<span class="c-ac">20</span>,
+)
+
+<span class="c-cm">print</span>(r.json())</pre>
+          </div>
+
+          <div class="preview" role="tabpanel" id="panel-node" aria-labelledby="tab-node" hidden>
+<pre><span class="c-cm">import</span> { ProxyAgent } <span class="c-cm">from</span> <span class="c-st">'undici'</span>;
+
+<span class="c-cm">const</span> proxy = <span class="c-st">'http://USER-country-jp-session-a41f:PASS@YOUR-ENDPOINT:8000'</span>;
+
+<span class="c-cm">const</span> res = <span class="c-cm">await</span> fetch(<span class="c-st">'https://api.ipify.org?format=json'</span>, {
+  dispatcher: <span class="c-cm">new</span> ProxyAgent(proxy),
+});
+
+console.log(<span class="c-cm">await</span> res.json());</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== PRICING ========================== -->
+<section class="sect" id="pricing" aria-labelledby="pricing-h">
+  <div class="wrap">
+    <div class="head center rv">
+      <span class="eb">Pricing</span>
+      <h2 class="h2" id="pricing-h">Pay for the traffic you actually use.</h2>
+      <p class="p">Prepaid bandwidth, billed per gigabyte. No seats, no minimum term, no platform fee, and the balance never expires.</p>
+    </div>
+
+    <div class="grid grid-3 pricing">
+
+      <article class="card price rv" style="--d:0s">
+        <h3 class="h3">Pool</h3>
+        <p class="price-line"><b>$3</b><span>/ GB</span></p>
+        <p class="p sm" style="margin-top:0;font-size:calc(14 * var(--us));font-weight:300;color:#a9a9b1">Shared rotating pool. The cheapest way to move volume.</p>
+        <ul class="ticks">
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Rotating residential exits</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>HTTP, HTTPS and SOCKS5</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Country-level targeting</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>No thread or device caps</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Balance never expires</li>
+        </ul>
+        <a class="btn btn-lg btn-ghost" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get started
+          <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+            <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+                  stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </article>
+
+      <article class="card price is-feat rv" style="--d:.07s">
+        <span class="badge">Most popular</span>
+        <h3 class="h3">Preferred</h3>
+        <p class="price-line"><b>$4</b><span>/ GB</span></p>
+        <p class="p sm" style="margin-top:0;font-size:calc(14 * var(--us));font-weight:300;color:#a9a9b1">Same pool, with sessions you can hold and target properly.</p>
+        <ul class="ticks">
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Pool</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Sticky sessions up to 60 minutes</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>City-level targeting where available</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Session control per request</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Priority when the pool is busy</li>
+        </ul>
+        <a class="btn btn-lg btn-primary" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Get started
+          <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+            <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+                  stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </article>
+
+      <article class="card price rv" style="--d:.14s">
+        <h3 class="h3">Country-locked</h3>
+        <p class="price-line"><b>$6</b><span>/ GB</span></p>
+        <p class="p sm" style="margin-top:0;font-size:calc(14 * var(--us));font-weight:300;color:#a9a9b1">Exits pinned to a single country you name.</p>
+        <ul class="ticks">
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Preferred</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Locked to one country of your choice</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>No rotation out of that country</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Ideal for geo-restricted work</li>
+          <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Dedicated pool available at $29 / month</li>
+        </ul>
+        <a class="btn btn-lg btn-ghost" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Ask about it
+          <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+            <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+                  stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </article>
+
+    </div>
+
+    <p class="note rv fade" style="text-align:center;margin-top:calc(34 * var(--us))">Minimum purchase $20. Above 50&nbsp;GB the rate drops to $2.50&nbsp;/&nbsp;GB. All balances are prepaid and never expire, and there is no minimum term — stop whenever you like.</p>
+  </div>
+</section>
+
+<!-- =========================== WHY =========================== -->
+<section class="sect" aria-labelledby="voices-h">
+  <div class="wrap">
+    <div class="head center rv">
+      <span class="eb">Why Meridian</span>
+      <h2 class="h2" id="voices-h">Small enough to actually talk to.</h2>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:calc(60 * var(--us))">
+      <article class="card voice rv" style="--d:0s">
+        <h3 class="h3" style="margin-bottom:calc(14 * var(--us))">Prepaid and permanent</h3>
+        <p style="margin:0;font-weight:300;color:#c9c9d1;line-height:1.65">Balances never expire. Top up $20 and take a year to spend it if that is what your workload looks like. Nothing is billed on a schedule.</p>
+      </article>
+      <article class="card voice rv" style="--d:.07s">
+        <h3 class="h3" style="margin-bottom:calc(14 * var(--us))">Sized to your workload</h3>
+        <p style="margin:0;font-weight:300;color:#c9c9d1;line-height:1.65">Tell us what you are running and roughly how many gigabytes a month. You get an account built around that, not a tier you have to grow into or pay past.</p>
+      </article>
+      <article class="card voice rv" style="--d:.14s">
+        <h3 class="h3" style="margin-bottom:calc(14 * var(--us))">A direct line</h3>
+        <p style="margin:0;font-weight:300;color:#c9c9d1;line-height:1.65">You deal with the person who runs the network. No ticket queue, no account manager, no support portal to fight through.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FAQ ============================ -->
+<section class="sect" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div class="split">
+      <div class="head faq-head rv">
+        <span class="eb">Questions</span>
+        <h2 class="h2" id="faq-h">The things people ask first.</h2>
+        <p class="p sm">Still unsure? Message the bot — you will get a person, usually within the hour.</p>
+      </div>
+
+      <div class="faq-list rv" style="--d:.06s">
+        <details open>
+          <summary>What exactly is a residential proxy?
+            <svg class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <p class="ans">A residential proxy routes your request through a genuine household connection, so the destination site sees a real consumer IP on a real ISP — not a datacentre range, and not a subnet that has been flagged a thousand times before.</p>
+        </details>
+        <details>
+          <summary>How do I get access?
+            <svg class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <p class="ans">Message the bot and tell it roughly what you are running and how many gigabytes a month you expect. You will be sent payment details, and once you have paid you get a single-use code to redeem for a live account. Your endpoint and credentials come with it.</p>
+        </details>
+        <details>
+          <summary>Which protocols do you support?
+            <svg class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <p class="ans">HTTP, HTTPS and SOCKS5 on the same endpoint and the same credentials. WebSocket upgrades work over HTTP without extra configuration.</p>
+        </details>
+        <details>
+          <summary>How does billing work?
+            <svg class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <p class="ans">Prepaid bandwidth, billed per gigabyte as you use it. The minimum purchase is $20, the balance never expires, and there is no minimum term — you top up again whenever you run low.</p>
+        </details>
+        <details>
+          <summary>Can I check my usage?
+            <svg class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <p class="ans">Yes. Ask the bot for your balance at any time and it will tell you what you have used against your cap. You are also notified automatically when you are running low.</p>
+        </details>
+        <details>
+          <summary>Can I reserve a dedicated pool?
+            <svg class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <p class="ans">Yes, at $29 a month. You get a pool reserved for your account alone, so your throughput never competes with another tenant. Ask the bot and it will size it with you.</p>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= BOOKEND CTA ========================= -->
+<section class="sect cta-final" id="contact" aria-labelledby="cta-h">
+  <div class="wrap">
+    <h2 class="h2 rv" id="cta-h">Route your next request through a real person's connection.</h2>
+    <p class="p rv" style="--d:.06s">Message the bot with what you're running and how much you expect to use. Minimum purchase is $20, and balances never expire.</p>
+    <div class="ctas rv" style="--d:.12s">
+      <a class="btn btn-lg btn-primary" href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Message the bot
+        <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+                stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a class="btn btn-lg btn-ghost" href="#pricing">See pricing
+        <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor"
+                stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== FOOTER =========================== -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="f-brand">
+        <a class="logo" href="#top">Meridian</a>
+        <p>Residential proxy infrastructure for teams that need real consumer IPs without a contract.</p>
+        <span class="status"><i></i>All systems operational</span>
+      </div>
+
+      <div class="f-col">
+        <h4>Proxies</h4>
+        <a href="#features">Residential</a>
+        <a href="#coverage">Targeting</a>
+        <a href="#pricing">Pool</a>
+        <a href="#pricing">Preferred</a>
+        <a href="#pricing">Country-locked</a>
+      </div>
+
+      <div class="f-col">
+        <h4>Developers</h4>
+        <a href="#developers">Quick start</a>
+        <a href="#developers">Code examples</a>
+        <a href="#developers">Protocols</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="f-col">
+        <h4>Account</h4>
+        <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Message the bot</a>
+        <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Redeem a code</a>
+        <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Check usage</a>
+        <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Contact</a>
+      </div>
+
+      <div class="f-col">
+        <h4>Legal</h4>
+        <a href="terms.html">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="refund.html">Refunds</a>
+        <a href="aup.html">Acceptable use</a>
+      </div>
+    </div>
+
+    <div class="f-base">
+      <span>© <span id="yr">2026</span> Meridian</span>
+      <span class="links">
+        <a href="https://t.me/QuotaPingBot" target="_blank" rel="noopener">Telegram</a>
+        <a href="terms.html">Terms</a>
+        <a href="aup.html">Acceptable use</a>
+      </span>
+    </div>
+
+    <p class="f-legal">Meridian is intended for lawful data collection, verification and market research. Customers must not use the network to access private accounts, circumvent authentication or violate the terms of the sites they visit.</p>
+  </div>
+</footer>
+
+<script>
+/* B) BURGER */
+(function(){
+  var burger = document.getElementById('burger');
+  var menu   = document.getElementById('menu');
+  if (!burger || !menu) return;
+
+  function isOpen(){ return menu.classList.contains('open'); }
+
+  function set(open){
+    menu.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  burger.addEventListener('click', function(e){
+    e.stopPropagation();
+    set(!isOpen());
+  });
+
+  menu.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a') : null;
+    if (a) set(false);
+  });
+
+  document.addEventListener('click', function(e){
+    if (!isOpen()) return;
+    if (menu.contains(e.target) || burger.contains(e.target)) return;
+    set(false);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && isOpen()) {
+      set(false);
+      burger.focus();
+    }
+  });
+})();
+</script>
+
+<script>
+/* D) SITE — sticky bar, scroll reveals, code tabs, year */
+(function(){
+  var root = document.documentElement;
+
+  /* --- sticky nav backdrop ---------------------------------- */
+  var nav = document.querySelector('.nav');
+  var queued = false;
+
+  function paint(){
+    queued = false;
+    if (!nav) return;
+    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    nav.classList.toggle('is-stuck', y > 24);
+  }
+  function onScroll(){
+    if (queued) return;
+    queued = true;
+    if (window.requestAnimationFrame) window.requestAnimationFrame(paint);
+    else setTimeout(paint, 16);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  paint();
+
+  /* --- code tabs --------------------------------------------- */
+  var tablist = document.querySelector('[data-tabs]');
+  if (tablist) {
+    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('.tab'));
+    var previews = tabs.map(function(t){
+      return document.getElementById(t.getAttribute('aria-controls'));
+    });
+
+    function select(i){
+      tabs.forEach(function(t, j){
+        var on = (i === j);
+        t.classList.toggle('is-on', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        if (previews[j]) {
+          previews[j].classList.toggle('is-on', on);
+          if (on) previews[j].removeAttribute('hidden');
+          else previews[j].setAttribute('hidden', '');
+        }
+      });
+    }
+
+    tabs.forEach(function(t, i){
+      t.addEventListener('click', function(){ select(i); });
+      t.addEventListener('keydown', function(e){
+        var n = null;
+        if (e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') n = 0;
+        else if (e.key === 'End') n = tabs.length - 1;
+        if (n === null) return;
+        e.preventDefault();
+        select(n);
+        tabs[n].focus();
+      });
+    });
+  }
+
+  /* --- scroll reveals ---------------------------------------- */
+  var revs = Array.prototype.slice.call(document.querySelectorAll('.rv'));
+  if (revs.length) {
+    if (root.classList.contains('js-rev') && 'IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            io.unobserve(en.target);
+          }
+        });
+      }, {rootMargin:'0px 0px -8% 0px', threshold:0.05});
+      revs.forEach(function(el){ io.observe(el); });
+    } else {
+      revs.forEach(function(el){ el.classList.add('in'); });
+    }
+  }
+
+  /* --- footer year ------------------------------------------- */
+  var yr = document.getElementById('yr');
+  if (yr) yr.textContent = String(new Date().getFullYear());
+})();
+</script>
+
+<script>
+/* C) BACKGROUND VIDEO — last element in <body>; the nodes exist by now */
+(function(){
+  var a = document.getElementById('bgVideoA');
+  var b = document.getElementById('bgVideoB');
+  if (!a || !b) return;
+
+  var reduce = false;
+  try{
+    reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  }catch(e){}
+
+  function play(v){
+    try{
+      var p = v.play();
+      if (p && typeof p.catch === 'function') p.catch(function(){});
+    }catch(e){}
+  }
+
+  if (reduce) {
+    try{ a.removeAttribute('autoplay'); }catch(e){}
+    try{ a.pause(); }catch(e){}
+    try{ b.pause(); }catch(e){}
+    try{ a.currentTime = 0; }catch(e){}
+    return;
+  }
+
+  var FADE = 0.9;
+  var cur = a, nxt = b, swapping = false;
+
+  play(a);
+
+  function tick(){
+    if (swapping || !cur.duration) return;
+    if (cur.duration - cur.currentTime > FADE) return;
+
+    swapping = true;
+    var out = cur;
+
+    try{ nxt.currentTime = 0; }catch(e){}
+    play(nxt);
+    nxt.classList.add('is-active');
+    out.classList.remove('is-active');
+
+    cur = nxt;
+    nxt = out;
+
+    setTimeout(function(){
+      try{ out.pause(); }catch(e){}
+      try{ out.currentTime = 0; }catch(e){}
+      swapping = false;
+    }, FADE * 1000 + 100);
+  }
+
+  a.addEventListener('timeupdate', tick);
+  b.addEventListener('timeupdate', tick);
+})();
+</script>
+
+</body>
 </html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not found — Meridian</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#07080c">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="Meridian home">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="ng" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#7c5cff"/><stop offset="1" stop-color="#31d0ff"/>
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="32" r="26" fill="none" stroke="url(#ng)" stroke-width="4"/>
+        <ellipse cx="32" cy="32" rx="11" ry="26" fill="none" stroke="url(#ng)" stroke-width="3"/>
+        <path d="M7 32h50" stroke="url(#ng)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="32" cy="32" r="4.5" fill="#31d0ff"/>
+      </svg>
+      <span>Meridian <em>/ proxy</em></span>
+    </a>
+    <div class="nav-links">
+      <a class="btn btn-primary btn-sm" href="https://t.me/QuotaPingBot">Get access</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <article class="legal">
+    <h1>Page not found</h1>
+    <p class="updated">That link doesn't lead anywhere.</p>
+    <p><a href="index.html">Back to the main page</a></p>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-bottom">
+      <span>© <span id="yr">2026</span> Meridian.</span>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
