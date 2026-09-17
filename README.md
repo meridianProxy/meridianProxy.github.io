@@ -15,6 +15,7 @@ is the whole deploy.
 | File | Purpose |
 |---|---|
 | `index.html` | The storefront, self-contained (CSS and JS inline) |
+| `tor.html` | Script-free build served to Tor and JS-disabled visitors |
 | `terms.html` `privacy.html` `refund.html` `aup.html` | Policy pages |
 | `404.html` | Not-found page |
 | `styles.css` | Shared stylesheet for the policy pages |
