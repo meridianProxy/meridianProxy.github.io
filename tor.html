@@ -196,7 +196,7 @@ body{
   transition:background .18s ease;
 }
 .btn-nav-start:hover{background:#fff}
-.btn-nav-start .arw{width:calc(11.5 * var(--u));height:calc(9.6 * var(--u))}
+.btn-nav-start .arw{width:calc(11.5 * var(--u, 1px));height:calc(9.6 * var(--u, 1px))}
 
 .burger{
   display:none;
@@ -571,7 +571,7 @@ html.anim.go .ctas .btn-ghost{animation:pillIn .70s var(--e-reveal) .97s both}
    ============================================================ */
 :root{
   --us: clamp(0.86px, calc(100vw / 1280), 1.3px);
-  --gut: calc(50 * var(--us));
+  --gut: calc(50 * var(--us, 1px));
 
   --accent: #a78bfa;
   --accent-soft: rgba(167,139,250,.14);
@@ -593,13 +593,13 @@ html.anim.go .ctas .btn-ghost{animation:pillIn .70s var(--e-reveal) .97s both}
 .sect{
   position:relative;z-index:1;
   background:#000;
-  padding:calc(112 * var(--us)) 0;
+  padding:calc(112 * var(--us, 1px)) 0;
   scroll-margin-top:calc(var(--navh) + 24px);
 }
-.sect.tight{padding:calc(62 * var(--us)) 0}
+.sect.tight{padding:calc(62 * var(--us, 1px)) 0}
 .wrap{
   width:100%;
-  max-width:calc(1280 * var(--us));
+  max-width:calc(1280 * var(--us, 1px));
   margin:0 auto;
   padding:0 var(--gut);
 }
@@ -607,17 +607,17 @@ html.anim.go .ctas .btn-ghost{animation:pillIn .70s var(--e-reveal) .97s both}
 /* --- section type ------------------------------------------ */
 .eb{
   display:inline-block;
-  margin:0 0 calc(20 * var(--us));
-  font-size:calc(11 * var(--us));
+  margin:0 0 calc(20 * var(--us, 1px));
+  font-size:calc(11 * var(--us, 1px));
   font-weight:600;
-  letter-spacing:calc(1.35 * var(--us));
+  letter-spacing:calc(1.35 * var(--us, 1px));
   text-transform:uppercase;
   color:var(--accent);
 }
 .h2{
   margin:0;
   font-weight:500;
-  font-size:calc(46 * var(--us));
+  font-size:calc(46 * var(--us, 1px));
   line-height:1.08;
   letter-spacing:calc(-1.2 * var(--us));
   color:var(--ink);
@@ -625,27 +625,27 @@ html.anim.go .ctas .btn-ghost{animation:pillIn .70s var(--e-reveal) .97s both}
 .h3{
   margin:0;
   font-weight:600;
-  font-size:calc(17.4 * var(--us));
+  font-size:calc(17.4 * var(--us, 1px));
   line-height:1.3;
   letter-spacing:calc(-0.3 * var(--us));
   color:var(--ink);
 }
 .p{
-  margin:calc(18 * var(--us)) 0 0;
+  margin:calc(18 * var(--us, 1px)) 0 0;
   font-weight:300;
-  font-size:calc(16.4 * var(--us));
+  font-size:calc(16.4 * var(--us, 1px));
   line-height:1.62;
   letter-spacing:calc(-0.2 * var(--us));
   color:var(--body);
 }
-.p.sm{font-size:calc(14.4 * var(--us));line-height:1.6;color:var(--muted)}
-.head{max-width:calc(700 * var(--us))}
+.p.sm{font-size:calc(14.4 * var(--us, 1px));line-height:1.6;color:var(--muted)}
+.head{max-width:calc(700 * var(--us, 1px))}
 .head.center{margin:0 auto;text-align:center}
 .head.center .p{margin-left:auto;margin-right:auto}
 
 /* --- scroll reveal (same vocabulary as the entrance) -------- */
 @keyframes rvUp{
-  from{opacity:0;transform:translateY(calc(16 * var(--us)))}
+  from{opacity:0;transform:translateY(calc(16 * var(--us, 1px)))}
   to{opacity:1;transform:none}
 }
 @keyframes rvFade{
@@ -665,9 +665,9 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
 
 /* --- trust marquee ----------------------------------------- */
 .trust-label{
-  margin:0 0 calc(26 * var(--us));
+  margin:0 0 calc(26 * var(--us, 1px));
   text-align:center;
-  font-size:calc(12.4 * var(--us));
+  font-size:calc(12.4 * var(--us, 1px));
   font-weight:400;
   letter-spacing:calc(-0.1 * var(--us));
   color:var(--muted);
@@ -682,8 +682,8 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
   animation:marquee 46s linear infinite;
 }
 .marquee-track > span{
-  margin-right:calc(74 * var(--us));
-  font-size:calc(17 * var(--us));
+  margin-right:calc(74 * var(--us, 1px));
+  font-size:calc(17 * var(--us, 1px));
   font-weight:700;
   letter-spacing:calc(-0.4 * var(--us));
   color:#fff;
@@ -700,14 +700,14 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
   border-bottom:1px solid var(--line);
 }
 .stat{
-  padding:calc(40 * var(--us)) calc(30 * var(--us));
+  padding:calc(40 * var(--us, 1px)) calc(30 * var(--us, 1px));
   border-left:1px solid var(--line);
 }
 .stat:first-child{border-left:0;padding-left:0}
 .stat:last-child{padding-right:0}
 .stat b{
   display:block;
-  font-size:calc(46 * var(--us));
+  font-size:calc(46 * var(--us, 1px));
   font-weight:500;
   line-height:1;
   letter-spacing:calc(-1.4 * var(--us));
@@ -715,21 +715,21 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
 }
 .stat span{
   display:block;
-  margin-top:calc(11 * var(--us));
-  font-size:calc(12.8 * var(--us));
+  margin-top:calc(11 * var(--us, 1px));
+  font-size:calc(12.8 * var(--us, 1px));
   font-weight:400;
   letter-spacing:calc(-0.1 * var(--us));
   color:var(--muted);
 }
 
 /* --- generic grids ----------------------------------------- */
-.grid{display:grid;gap:calc(16 * var(--us))}
+.grid{display:grid;gap:calc(16 * var(--us, 1px))}
 .grid-3{grid-template-columns:repeat(3,1fr)}
 .grid-2{grid-template-columns:repeat(2,1fr)}
 .split{
   display:grid;
   grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:calc(84 * var(--us));
+  gap:calc(84 * var(--us, 1px));
   align-items:start;
 }
 
@@ -737,8 +737,8 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
 .card{
   background:var(--card);
   border:1px solid var(--line);
-  border-radius:calc(20 * var(--us));
-  padding:calc(30 * var(--us));
+  border-radius:calc(20 * var(--us, 1px));
+  padding:calc(30 * var(--us, 1px));
   transition:transform .25s var(--e-soft),border-color .18s ease,background .18s ease;
 }
 .card:hover{
@@ -747,22 +747,22 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
   background:var(--card-hi);
 }
 .card p{
-  margin:calc(11 * var(--us)) 0 0;
+  margin:calc(11 * var(--us, 1px)) 0 0;
   font-weight:300;
-  font-size:calc(14.6 * var(--us));
+  font-size:calc(14.6 * var(--us, 1px));
   line-height:1.62;
   letter-spacing:calc(-0.1 * var(--us));
   color:#a9a9b1;
 }
 .card .ico{
   display:flex;align-items:center;justify-content:center;
-  width:calc(34 * var(--us));height:calc(34 * var(--us));
-  margin-bottom:calc(20 * var(--us));
-  border-radius:calc(11 * var(--us));
+  width:calc(34 * var(--us, 1px));height:calc(34 * var(--us, 1px));
+  margin-bottom:calc(20 * var(--us, 1px));
+  border-radius:calc(11 * var(--us, 1px));
   background:var(--accent-soft);
   color:var(--accent);
 }
-.card .ico svg{width:calc(16 * var(--us));height:calc(16 * var(--us));display:block}
+.card .ico svg{width:calc(16 * var(--us, 1px));height:calc(16 * var(--us, 1px));display:block}
 
 /* --- steps -------------------------------------------------- */
 .steps{
@@ -770,21 +770,21 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
   margin:0;padding:0;
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:calc(48 * var(--us));
+  gap:calc(48 * var(--us, 1px));
 }
-.steps li{padding-top:calc(28 * var(--us));border-top:1px solid var(--line)}
+.steps li{padding-top:calc(28 * var(--us, 1px));border-top:1px solid var(--line)}
 .steps .num{
   display:block;
-  margin-bottom:calc(18 * var(--us));
-  font-size:calc(12.4 * var(--us));
+  margin-bottom:calc(18 * var(--us, 1px));
+  font-size:calc(12.4 * var(--us, 1px));
   font-weight:600;
-  letter-spacing:calc(1.1 * var(--us));
+  letter-spacing:calc(1.1 * var(--us, 1px));
   color:var(--accent);
 }
 .steps p{
-  margin:calc(12 * var(--us)) 0 0;
+  margin:calc(12 * var(--us, 1px)) 0 0;
   font-weight:300;
-  font-size:calc(14.8 * var(--us));
+  font-size:calc(14.8 * var(--us, 1px));
   line-height:1.62;
   color:#a9a9b1;
 }
@@ -796,53 +796,53 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
 }
 .regions li{
   display:flex;align-items:center;justify-content:space-between;
-  gap:calc(24 * var(--us));
-  padding:calc(19 * var(--us)) 0;
+  gap:calc(24 * var(--us, 1px));
+  padding:calc(19 * var(--us, 1px)) 0;
   border-bottom:1px solid var(--line);
   transition:padding-left .25s var(--e-soft);
 }
-.regions li:hover{padding-left:calc(8 * var(--us))}
+.regions li:hover{padding-left:calc(8 * var(--us, 1px))}
 .regions .rg-name{
-  display:flex;align-items:center;gap:calc(12 * var(--us));
-  font-size:calc(15.4 * var(--us));
+  display:flex;align-items:center;gap:calc(12 * var(--us, 1px));
+  font-size:calc(15.4 * var(--us, 1px));
   font-weight:500;
   letter-spacing:calc(-0.2 * var(--us));
   color:#f0f0f2;
 }
 .regions .dot{
-  width:calc(6 * var(--us));height:calc(6 * var(--us));
+  width:calc(6 * var(--us, 1px));height:calc(6 * var(--us, 1px));
   border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 calc(9 * var(--us)) rgba(167,139,250,.85);
+  box-shadow:0 0 calc(9 * var(--us, 1px)) rgba(167,139,250,.85);
   flex:0 0 auto;
 }
 .regions .rg-val{
-  font-size:calc(14 * var(--us));
+  font-size:calc(14 * var(--us, 1px));
   font-weight:400;
   letter-spacing:calc(-0.2 * var(--us));
   color:var(--muted);
   font-variant-numeric:tabular-nums;
 }
 .note{
-  margin-top:calc(26 * var(--us));
-  font-size:calc(13.4 * var(--us));
+  margin-top:calc(26 * var(--us, 1px));
+  font-size:calc(13.4 * var(--us, 1px));
   font-weight:300;
   line-height:1.6;
   color:#7d7d86;
 }
 
 /* --- developer / code -------------------------------------- */
-.tabs{display:flex;gap:calc(4 * var(--us));margin-bottom:calc(14 * var(--us))}
+.tabs{display:flex;gap:calc(4 * var(--us, 1px));margin-bottom:calc(14 * var(--us, 1px))}
 .tab{
   font-family:inherit;
-  font-size:calc(12.4 * var(--us));
+  font-size:calc(12.4 * var(--us, 1px));
   font-weight:500;
   letter-spacing:calc(-0.15 * var(--us));
   color:#9d9da6;
   background:transparent;
   border:0;
-  padding:calc(8 * var(--us)) calc(14 * var(--us));
-  border-radius:calc(9 * var(--us));
+  padding:calc(8 * var(--us, 1px)) calc(14 * var(--us, 1px));
+  border-radius:calc(9 * var(--us, 1px));
   cursor:pointer;
   transition:background .18s ease,color .18s ease;
 }
@@ -852,18 +852,18 @@ html.js-rev .rv.fade.in{animation-name:rvFade;animation-duration:.9s}
 .panels{
   background:#0b0b0d;
   border:1px solid var(--line);
-  border-radius:calc(16 * var(--us));
+  border-radius:calc(16 * var(--us, 1px));
   overflow:hidden;
-  min-height:calc(248 * var(--us));
+  min-height:calc(248 * var(--us, 1px));
 }
 .preview{display:none}
 .preview.is-on{display:block}
 pre{
   margin:0;
-  padding:calc(24 * var(--us));
+  padding:calc(24 * var(--us, 1px));
   overflow-x:auto;
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
-  font-size:calc(12.4 * var(--us));
+  font-size:calc(12.4 * var(--us, 1px));
   line-height:1.85;
   letter-spacing:0;
   color:#d8d8de;
@@ -877,21 +877,21 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 .c-dim{color:#8b8b96}
 
 .cap{
-  list-style:none;margin:calc(30 * var(--us)) 0 0;padding:0;
+  list-style:none;margin:calc(30 * var(--us, 1px)) 0 0;padding:0;
 }
 .cap li{
-  display:flex;align-items:flex-start;gap:calc(11 * var(--us));
-  padding:calc(11 * var(--us)) 0;
-  font-size:calc(14.4 * var(--us));
+  display:flex;align-items:flex-start;gap:calc(11 * var(--us, 1px));
+  padding:calc(11 * var(--us, 1px)) 0;
+  font-size:calc(14.4 * var(--us, 1px));
   font-weight:400;
   letter-spacing:calc(-0.15 * var(--us));
   color:#c2c2ca;
   border-bottom:1px solid var(--line);
 }
-.cap svg{width:calc(13 * var(--us));height:calc(13 * var(--us));margin-top:calc(5 * var(--us));color:var(--accent);flex:0 0 auto}
+.cap svg{width:calc(13 * var(--us, 1px));height:calc(13 * var(--us, 1px));margin-top:calc(5 * var(--us, 1px));color:var(--accent);flex:0 0 auto}
 
 /* --- pricing ------------------------------------------------ */
-.pricing{margin-top:calc(56 * var(--us))}
+.pricing{margin-top:calc(56 * var(--us, 1px))}
 .price{
   position:relative;
   display:flex;flex-direction:column;
@@ -902,84 +902,84 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 }
 .price.is-feat:hover{border-color:rgba(167,139,250,.5)}
 .price .badge{
-  position:absolute;top:calc(-11 * var(--us));left:calc(30 * var(--us));
-  font-size:calc(10.4 * var(--us));
+  position:absolute;top:calc(-11 * var(--us));left:calc(30 * var(--us, 1px));
+  font-size:calc(10.4 * var(--us, 1px));
   font-weight:600;
-  letter-spacing:calc(1 * var(--us));
+  letter-spacing:calc(1 * var(--us, 1px));
   text-transform:uppercase;
   color:#0c0a14;
   background:var(--accent);
-  padding:calc(5 * var(--us)) calc(10 * var(--us));
+  padding:calc(5 * var(--us, 1px)) calc(10 * var(--us, 1px));
   border-radius:99px;
 }
-.price .h3{margin-top:calc(4 * var(--us))}
+.price .h3{margin-top:calc(4 * var(--us, 1px))}
 .price-line{
-  display:flex;align-items:baseline;gap:calc(6 * var(--us));
-  margin:calc(18 * var(--us)) 0 0;
+  display:flex;align-items:baseline;gap:calc(6 * var(--us, 1px));
+  margin:calc(18 * var(--us, 1px)) 0 0;
 }
 .price-line b{
-  font-size:calc(42 * var(--us));
+  font-size:calc(42 * var(--us, 1px));
   font-weight:500;
   line-height:1;
   letter-spacing:calc(-1.4 * var(--us));
   color:#fff;
 }
 .price-line span{
-  font-size:calc(13.6 * var(--us));
+  font-size:calc(13.6 * var(--us, 1px));
   font-weight:400;
   color:var(--muted);
 }
 .ticks{
   list-style:none;
-  margin:calc(26 * var(--us)) 0 calc(30 * var(--us));
+  margin:calc(26 * var(--us, 1px)) 0 calc(30 * var(--us, 1px));
   padding:0;
   border-top:1px solid var(--line);
   flex:1;
 }
 .ticks li{
-  display:flex;align-items:flex-start;gap:calc(11 * var(--us));
-  padding:calc(10 * var(--us)) 0;
-  font-size:calc(14 * var(--us));
+  display:flex;align-items:flex-start;gap:calc(11 * var(--us, 1px));
+  padding:calc(10 * var(--us, 1px)) 0;
+  font-size:calc(14 * var(--us, 1px));
   font-weight:400;
   letter-spacing:calc(-0.15 * var(--us));
   color:#c2c2ca;
 }
-.ticks svg{width:calc(12 * var(--us));height:calc(12 * var(--us));margin-top:calc(5 * var(--us));color:var(--accent);flex:0 0 auto}
+.ticks svg{width:calc(12 * var(--us, 1px));height:calc(12 * var(--us, 1px));margin-top:calc(5 * var(--us, 1px));color:var(--accent);flex:0 0 auto}
 .price .btn{width:100%}
 
 /* buttons inside the flow are authored on --us, not --u */
 .sect .btn-lg{
-  height:calc(42 * var(--us));
-  border-radius:calc(21 * var(--us));
-  font-size:calc(14 * var(--us));
-  gap:calc(9 * var(--us));
-  padding-left:calc(20 * var(--us));
-  padding-right:calc(22 * var(--us));
+  height:calc(42 * var(--us, 1px));
+  border-radius:calc(21 * var(--us, 1px));
+  font-size:calc(14 * var(--us, 1px));
+  gap:calc(9 * var(--us, 1px));
+  padding-left:calc(20 * var(--us, 1px));
+  padding-right:calc(22 * var(--us, 1px));
 }
-.sect .btn-lg .arw{width:calc(13.6 * var(--us));height:calc(11.3 * var(--us))}
+.sect .btn-lg .arw{width:calc(13.6 * var(--us, 1px));height:calc(11.3 * var(--us, 1px))}
 
 /* --- voices ------------------------------------------------- */
 .voice q{
   display:block;
   font-weight:300;
-  font-size:calc(16 * var(--us));
+  font-size:calc(16 * var(--us, 1px));
   line-height:1.6;
   letter-spacing:calc(-0.2 * var(--us));
   color:#e6e6ea;
   quotes:"“" "”";
 }
 .voice .who{
-  margin-top:calc(24 * var(--us));
-  padding-top:calc(20 * var(--us));
+  margin-top:calc(24 * var(--us, 1px));
+  padding-top:calc(20 * var(--us, 1px));
   border-top:1px solid var(--line);
-  font-size:calc(13.6 * var(--us));
+  font-size:calc(13.6 * var(--us, 1px));
   font-weight:600;
   letter-spacing:calc(-0.15 * var(--us));
   color:#fff;
 }
 .voice .role{
-  margin-top:calc(5 * var(--us));
-  font-size:calc(12.8 * var(--us));
+  margin-top:calc(5 * var(--us, 1px));
+  font-size:calc(12.8 * var(--us, 1px));
   font-weight:400;
   color:var(--muted);
 }
@@ -990,11 +990,11 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 .faq-list details{border-bottom:1px solid var(--line)}
 .faq-list summary{
   display:flex;align-items:center;justify-content:space-between;
-  gap:calc(24 * var(--us));
-  padding:calc(23 * var(--us)) 0;
+  gap:calc(24 * var(--us, 1px));
+  padding:calc(23 * var(--us, 1px)) 0;
   cursor:pointer;
   list-style:none;
-  font-size:calc(16 * var(--us));
+  font-size:calc(16 * var(--us, 1px));
   font-weight:500;
   letter-spacing:calc(-0.25 * var(--us));
   color:#f2f2f4;
@@ -1004,23 +1004,23 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 .faq-list summary::-webkit-details-marker{display:none}
 .faq-list summary::marker{content:""}
 .chev{
-  width:calc(12 * var(--us));height:calc(8 * var(--us));
+  width:calc(12 * var(--us, 1px));height:calc(8 * var(--us, 1px));
   flex:0 0 auto;color:#7d7d86;
   transition:transform .22s var(--e-soft),color .18s ease;
 }
 .faq-list details[open] .chev{transform:rotate(180deg);color:var(--accent)}
 .faq-list .ans{
   margin:0;
-  padding:0 calc(48 * var(--us)) calc(26 * var(--us)) 0;
+  padding:0 calc(48 * var(--us, 1px)) calc(26 * var(--us, 1px)) 0;
   font-weight:300;
-  font-size:calc(15 * var(--us));
+  font-size:calc(15 * var(--us, 1px));
   line-height:1.68;
   color:#a9a9b1;
 }
 
 /* --- bookend CTA + footer (the globe returns) --------------- */
 .cta-final{
-  padding:calc(168 * var(--us)) 0 calc(132 * var(--us));
+  padding:calc(168 * var(--us, 1px)) 0 calc(132 * var(--us, 1px));
   text-align:center;
   background:linear-gradient(to bottom, #000 0%, rgba(0,0,0,.86) 30%, rgba(0,0,0,.86) 100%);
 }
@@ -1031,12 +1031,12 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
   pointer-events:none;
 }
 .cta-final .wrap{position:relative}
-.cta-final .h2{font-size:calc(56 * var(--us));letter-spacing:calc(-1.5 * var(--us))}
-.cta-final .p{max-width:calc(560 * var(--us));margin-left:auto;margin-right:auto}
+.cta-final .h2{font-size:calc(56 * var(--us, 1px));letter-spacing:calc(-1.5 * var(--us))}
+.cta-final .p{max-width:calc(560 * var(--us, 1px));margin-left:auto;margin-right:auto}
 .cta-final .ctas{
-  margin-top:calc(34 * var(--us));
+  margin-top:calc(34 * var(--us, 1px));
   transform:none;
-  display:flex;justify-content:center;gap:calc(9 * var(--us));
+  display:flex;justify-content:center;gap:calc(9 * var(--us, 1px));
   flex-wrap:wrap;
 }
 
@@ -1044,46 +1044,46 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
   position:relative;z-index:1;
   background:linear-gradient(to bottom, rgba(0,0,0,.86), rgba(0,0,0,.96));
   border-top:1px solid var(--line);
-  padding:calc(76 * var(--us)) 0 calc(40 * var(--us));
+  padding:calc(76 * var(--us, 1px)) 0 calc(40 * var(--us, 1px));
 }
 .footer-grid{
   display:grid;
   grid-template-columns:1.7fr 1fr 1fr 1fr 1fr;
-  gap:calc(40 * var(--us));
+  gap:calc(40 * var(--us, 1px));
 }
-.f-brand .logo{display:inline-block;font-size:calc(24 * var(--us));letter-spacing:calc(0.4 * var(--us))}
+.f-brand .logo{display:inline-block;font-size:calc(24 * var(--us, 1px));letter-spacing:calc(0.4 * var(--us, 1px))}
 .f-brand p{
-  margin:calc(18 * var(--us)) 0 0;
-  max-width:calc(280 * var(--us));
+  margin:calc(18 * var(--us, 1px)) 0 0;
+  max-width:calc(280 * var(--us, 1px));
   font-weight:300;
-  font-size:calc(14 * var(--us));
+  font-size:calc(14 * var(--us, 1px));
   line-height:1.62;
   color:#8e8e97;
 }
 .status{
-  display:inline-flex;align-items:center;gap:calc(8 * var(--us));
-  margin-top:calc(22 * var(--us));
-  font-size:calc(12.6 * var(--us));
+  display:inline-flex;align-items:center;gap:calc(8 * var(--us, 1px));
+  margin-top:calc(22 * var(--us, 1px));
+  font-size:calc(12.6 * var(--us, 1px));
   font-weight:500;
   color:#b7b7c0;
 }
 .status i{
-  width:calc(6 * var(--us));height:calc(6 * var(--us));
+  width:calc(6 * var(--us, 1px));height:calc(6 * var(--us, 1px));
   border-radius:50%;background:var(--accent);
-  box-shadow:0 0 calc(8 * var(--us)) rgba(167,139,250,.8);
+  box-shadow:0 0 calc(8 * var(--us, 1px)) rgba(167,139,250,.8);
 }
 .f-col h4{
-  margin:0 0 calc(16 * var(--us));
-  font-size:calc(11.6 * var(--us));
+  margin:0 0 calc(16 * var(--us, 1px));
+  font-size:calc(11.6 * var(--us, 1px));
   font-weight:600;
-  letter-spacing:calc(0.9 * var(--us));
+  letter-spacing:calc(0.9 * var(--us, 1px));
   text-transform:uppercase;
   color:rgba(255,255,255,.4);
 }
 .f-col a{
   display:block;
-  padding:calc(6.5 * var(--us)) 0;
-  font-size:calc(14.2 * var(--us));
+  padding:calc(6.5 * var(--us, 1px)) 0;
+  font-size:calc(14.2 * var(--us, 1px));
   font-weight:400;
   letter-spacing:calc(-0.15 * var(--us));
   color:#b9b9c1;
@@ -1093,25 +1093,25 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 .f-col a:hover{color:#fff}
 .f-base{
   display:flex;align-items:center;justify-content:space-between;
-  gap:calc(24 * var(--us));
+  gap:calc(24 * var(--us, 1px));
   flex-wrap:wrap;
-  margin-top:calc(64 * var(--us));
-  padding-top:calc(26 * var(--us));
+  margin-top:calc(64 * var(--us, 1px));
+  padding-top:calc(26 * var(--us, 1px));
   border-top:1px solid var(--line);
-  font-size:calc(13 * var(--us));
+  font-size:calc(13 * var(--us, 1px));
   font-weight:400;
   color:#7d7d86;
 }
-.f-base .links{display:flex;gap:calc(22 * var(--us));flex-wrap:wrap}
+.f-base .links{display:flex;gap:calc(22 * var(--us, 1px));flex-wrap:wrap}
 .f-base a{color:#9d9da6;text-decoration:none;transition:color .18s ease}
 .f-base a:hover{color:#fff}
 .f-legal{
-  margin-top:calc(20 * var(--us));
-  font-size:calc(12.4 * var(--us));
+  margin-top:calc(20 * var(--us, 1px));
+  font-size:calc(12.4 * var(--us, 1px));
   font-weight:300;
   line-height:1.6;
   color:#5f5f67;
-  max-width:calc(760 * var(--us));
+  max-width:calc(760 * var(--us, 1px));
 }
 
 /* the menu is anchored under a fixed bar, so it is fixed too */
@@ -1192,24 +1192,6 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
    Visual result is identical; nothing below changes how anything looks.
    ============================================================ */
 
-/* --- code tabs: radios replace .tab.is-on / .preview.is-on --- */
-.tabctl > input[type="radio"]{
-  position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;
-}
-.tabctl .tab{cursor:pointer}
-.tabctl #t-curl:checked  ~ .tabs label[for="t-curl"],
-.tabctl #t-py:checked    ~ .tabs label[for="t-py"],
-.tabctl #t-node:checked  ~ .tabs label[for="t-node"]{
-  background:var(--panel);color:#fff;
-}
-.tabctl #t-curl:checked ~ .panels #panel-curl,
-.tabctl #t-py:checked   ~ .panels #panel-py,
-.tabctl #t-node:checked ~ .panels #panel-node{display:block}
-/* keyboard focus ring, since the radios themselves are invisible */
-.tabctl > input[type="radio"]:focus-visible ~ .tabs label{
-  outline:2px solid rgba(255,255,255,.35);outline-offset:2px;
-}
-
 /* --- burger menu: a checkbox replaces .menu.open --- */
 .navtoggle{
   position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;
@@ -1223,8 +1205,7 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 /* --- hero background: stand-in for the video ---
    The clearnet hero plays a rotating dot-matrix globe. That video is a
    third-party request, so it is gone; this is the same subject drawn in CSS
-   from two gradients. The radial gradient already in .bg stays underneath. */
-.bg::after{
+   from two gradients. The radial gradient already in .bg stays underneath. */.bg::after{
   content:"";position:absolute;left:50%;top:52%;
   width:min(118vw,900px);aspect-ratio:1;transform:translate(-50%,-50%);
   border-radius:50%;
@@ -1244,10 +1225,49 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 }
 .bg-video{display:none}
 
+/* --- Tor notice bar ---
+   Sits above the nav so it is the first thing read. This is reassurance the
+   clearnet page has no reason to carry, which is why it lives here rather
+   than in the shared markup. */
+.torbar{
+  background:rgba(124,92,255,.10);
+  border-bottom:1px solid var(--line);
+  font-size:calc(13.5 * var(--us, 1px));
+  color:var(--body);
+}
+.torbar .wrap{
+  display:flex;gap:calc(10 * var(--us, 1px));align-items:center;
+  padding-top:calc(11 * var(--us, 1px));padding-bottom:calc(11 * var(--us, 1px));
+  flex-wrap:wrap;
+}
+.torbar i{
+  width:8px;height:8px;border-radius:50%;background:#5bd67a;flex:0 0 auto;
+}
+.torbar b{color:#fff;font-weight:600}
+
+/* --- onion address placeholder --- */
+.onion{
+  display:inline-block;font-family:var(--mono, monospace);
+  font-size:calc(12 * var(--us, 1px));
+  background:rgba(255,255,255,.03);border:1px dashed var(--line);
+  border-radius:calc(9 * var(--us, 1px));
+  padding:calc(9 * var(--us, 1px)) calc(13 * var(--us, 1px));
+  color:var(--muted);word-break:break-all;margin-top:calc(10 * var(--us, 1px));
+}
+
 </style>
 </head>
 
 <body>
+
+<div class="torbar">
+  <div class="wrap">
+    <i aria-hidden="true"></i>
+    <span><b>Tor build.</b> No scripts, and nothing loaded from outside the Tor network - no fonts, no analytics, no images from a CDN.</span>
+  </div>
+</div>
+
+
 
 <input type="checkbox" id="navtoggle" class="navtoggle" aria-label="Toggle menu">
 
@@ -1465,7 +1485,9 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
         <span class="eb">Setup</span>
         <h2 class="h2" id="dev-h">The entire API is a username.</h2>
         <p class="p">There is no SDK to install and no token to refresh. You are given a host, a port pair and a login; everything else is expressed in the username itself. Your endpoint and credentials are handed over when your account is provisioned, and are not published here.</p>
+      </div>
 
+      <div class="rv" style="--d:.08s">
         <ul class="cap">
           <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Rotating and sticky on the same credentials</li>
           <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Country preference or country lock</li>
@@ -1473,60 +1495,6 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
           <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>SOCKS5 for anything non-HTTP</li>
           <li><svg viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6.4 4.6 9 10 3.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>No SDK, no plugin, no agent</li>
         </ul>
-      </div>
-
-      <div class="rv" style="--d:.08s">
-        <div class="tabctl">
-        <input type="radio" name="codetab" id="t-curl" checked>
-        <input type="radio" name="codetab" id="t-py">
-        <input type="radio" name="codetab" id="t-node">
-        <div class="tabs">
-          <label class="tab is-on" for="t-curl">cURL</label>
-          <label class="tab" for="t-py">Python</label>
-          <label class="tab" for="t-node">Node</label>
-        </div>
-
-        </div>
-
-        <div class="panels">
-          <div class="preview is-on" role="tabpanel" id="panel-curl" aria-labelledby="tab-curl">
-<pre><span class="c-cm"># a new address on every request</span>
-curl -x <span class="c-ac">socks5h://USER:PASS@YOUR-ENDPOINT:3128</span> \
-     https://api.ipify.org
-
-<span class="c-cm"># same address, Germany preferred, held for the session</span>
-curl -x <span class="c-ac">socks5h://USER-pref-de-session-a41f:PASS@YOUR-ENDPOINT:3128</span> \
-     https://api.ipify.org</pre>
-          </div>
-
-          <div class="preview" role="tabpanel" id="panel-py" aria-labelledby="tab-py" hidden>
-<pre><span class="c-cm">import</span> requests
-
-<span class="c-cm"># -cc-de requires Germany and fails rather than quietly rotating away</span>
-proxy = <span class="c-st">"socks5h://USER-cc-de-session-a41f:PASS@YOUR-ENDPOINT:3128"</span>
-
-r = requests.get(
-    <span class="c-st">"https://api.ipify.org?format=json"</span>,
-    proxies={<span class="c-st">"http"</span>: proxy, <span class="c-st">"https"</span>: proxy},
-    timeout=<span class="c-ac">20</span>,
-)
-
-<span class="c-cm">print</span>(r.json())</pre>
-          </div>
-
-          <div class="preview" role="tabpanel" id="panel-node" aria-labelledby="tab-node" hidden>
-<pre><span class="c-cm">import</span> { ProxyAgent } <span class="c-cm">from</span> <span class="c-st">'undici'</span>;
-
-<span class="c-cm">const</span> proxy = <span class="c-st">'socks5h://USER-pref-jp-session-a41f:PASS@YOUR-ENDPOINT:3128'</span>;
-
-<span class="c-cm">const</span> res = <span class="c-cm">await</span> fetch(<span class="c-st">'https://api.ipify.org?format=json'</span>, {
-  dispatcher: <span class="c-cm">new</span> ProxyAgent(proxy),
-});
-
-console.log(<span class="c-cm">await</span> res.json());</pre>
-          </div>
-        </div>
-        </div>
       </div>
     </div>
   </div>
@@ -1685,6 +1653,18 @@ console.log(<span class="c-cm">await</span> res.json());</pre>
           </summary>
           <p class="ans">Ask the bot for your balance at any time and it will show what you have spent against your cap. It also messages you automatically at about eighty percent, so you are never cut off in the middle of a run without warning.</p>
         </details>
+        <details>
+          <summary>Is this page different from the main site?
+            <svg class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <p class="ans">It is the same design, the same copy and the same components. Two things are different: the hero background is drawn in CSS rather than played from a CDN, and the typeface is served from this address instead of a font host. The only visible omission is the one-second intro animation, which needs scripting to start.</p>
+        </details>
+        <details>
+          <summary>Is the Telegram bot safe to reach from here?
+            <svg class="chev" viewBox="0 0 12 8" fill="none" aria-hidden="true"><path d="M1 1.6 6 6.4l5-4.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <p class="ans">Telegram is not a Tor service, so contacting the bot takes you out of the Tor network and onto ordinary TLS. That is a decision worth making deliberately rather than by accident. An onion address for contact is coming; until then, use a dedicated Telegram account if that matters to you.</p>
+        </details>
       </div>
     </div>
   </div>
@@ -1719,6 +1699,9 @@ console.log(<span class="c-cm">await</span> res.json());</pre>
       <div class="f-brand">
         <a class="logo" href="#top">Meridian</a>
         <p>Residential proxy access sold by the gigabyte, with no subscription attached.</p>
+<p class="note" style="margin:calc(16 * var(--us, 1px)) 0 0">Onion address, once it exists:</p>
+        <span class="onion">meridianxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.onion</span>
+        
         <span class="status"><i></i>All systems operational</span>
       </div>
 
