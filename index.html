@@ -1135,6 +1135,174 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 .menu{position:fixed}
 
 /* --- FLOW BREAKPOINTS --------------------------------------- */
+/* ============================================================
+   SETUP PIPELINE - three-node connection graphic
+   Animated entirely in CSS. Nothing here depends on a class
+   the script would add, so it renders identically with
+   scripting disabled (tor.html).
+   ============================================================ */
+.pipe{
+  position:relative;
+  display:flex;align-items:center;justify-content:center;
+  gap:calc(14 * var(--us, 1px));
+  width:100%;
+  max-width:calc(700 * var(--us, 1px));
+  margin:0 auto calc(76 * var(--us, 1px));
+  z-index:1;
+}
+.pipe-track{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+.pipe-beam,.pipe-beam-glow{
+  position:absolute;top:50%;left:-25%;
+  width:25%;height:2px;margin-top:-1px;
+  background:linear-gradient(90deg,
+    rgba(167,139,250,0) 0%,
+    rgba(167,139,250,.75) 25%,
+    #ffffff 50%,
+    rgba(167,139,250,.8) 75%,
+    rgba(167,139,250,0) 100%);
+  animation:pipeBeam 4s linear infinite;
+}
+.pipe-beam-glow{
+  height:calc(7 * var(--us, 1px));
+  margin-top:calc(-3.5 * var(--us, 1px));
+  opacity:.55;
+  filter:blur(4px);
+}
+.pipe-line{
+  width:calc(160 * var(--us, 1px));
+  height:1px;flex-shrink:0;
+  background:linear-gradient(90deg,rgba(255,255,255,.15),rgba(255,255,255,.07));
+}
+.pipe-line.r{background:linear-gradient(90deg,rgba(255,255,255,.07),rgba(255,255,255,.15))}
+.pipe-mid{position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pipe-splash{
+  position:absolute;inset:0;margin:auto;
+  width:calc(100 * var(--us, 1px));height:calc(100 * var(--us, 1px));
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(167,139,250,.55) 0%,transparent 70%);
+  opacity:0;transform:scale(.4);
+  z-index:2;pointer-events:none;
+  animation:pipeSplash 4s ease-out infinite;
+}
+.pipe-node{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  width:calc(46 * var(--us, 1px));height:calc(46 * var(--us, 1px));
+  flex-shrink:0;border-radius:50%;
+  background:#17171a;
+  z-index:3;
+  box-shadow:
+    calc(6 * var(--us, 1px)) calc(6 * var(--us, 1px)) calc(12 * var(--us, 1px)) rgba(0,0,0,.55),
+    calc(-4 * var(--us, 1px)) calc(-4 * var(--us, 1px)) calc(10 * var(--us, 1px)) rgba(255,255,255,.035),
+    inset 1px 1px 1px rgba(255,255,255,.05),
+    inset 4px 4px 8px rgba(0,0,0,.45);
+  transition:transform .25s var(--e-soft),box-shadow .25s var(--e-soft);
+}
+.pipe-node::after{
+  content:'';position:absolute;inset:calc(-7 * var(--us, 1px));
+  border-radius:50%;
+  border:1px dotted rgba(255,255,255,.09);
+  pointer-events:none;
+}
+.pipe-node svg{
+  width:calc(20 * var(--us, 1px));height:calc(20 * var(--us, 1px));
+  fill:none;stroke:rgba(255,255,255,.72);stroke-width:1.5;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.pipe-node:hover{
+  transform:translateY(calc(-1 * var(--us, 1px)));
+  box-shadow:
+    calc(8 * var(--us, 1px)) calc(8 * var(--us, 1px)) calc(16 * var(--us, 1px)) rgba(0,0,0,.6),
+    calc(-5 * var(--us, 1px)) calc(-5 * var(--us, 1px)) calc(12 * var(--us, 1px)) rgba(255,255,255,.05),
+    inset 1px 1px 1px rgba(255,255,255,.06),
+    inset 5px 5px 10px rgba(0,0,0,.5);
+}
+.pipe-node.a::before,.pipe-node.c::before{
+  content:'';position:absolute;inset:calc(-6 * var(--us, 1px));
+  border-radius:50%;opacity:0;z-index:4;pointer-events:none;
+}
+.pipe-node.a::before{
+  background:radial-gradient(circle at left,rgba(167,139,250,.5) 0%,transparent 70%);
+  animation:pipeGlowA 4s ease-in-out infinite;
+}
+.pipe-node.c::before{
+  background:radial-gradient(circle at right,rgba(210,210,215,.45) 0%,transparent 70%);
+  animation:pipeGlowC 4s ease-in-out infinite;
+}
+.pipe-hub{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  width:calc(64 * var(--us, 1px));height:calc(64 * var(--us, 1px));
+  flex-shrink:0;border-radius:50%;
+  background:#1c1c20;
+  z-index:3;
+  box-shadow:
+    calc(8 * var(--us, 1px)) calc(8 * var(--us, 1px)) calc(16 * var(--us, 1px)) rgba(0,0,0,.6),
+    calc(-6 * var(--us, 1px)) calc(-6 * var(--us, 1px)) calc(14 * var(--us, 1px)) rgba(255,255,255,.04),
+    inset 1px 1px 2px rgba(255,255,255,.06),
+    inset 6px 6px 12px rgba(0,0,0,.55);
+}
+.pipe-hub svg{
+  width:calc(28 * var(--us, 1px));height:calc(28 * var(--us, 1px));
+  fill:none;stroke:#fff;stroke-width:1.7;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+/* node captions - offsets differ per node so the three labels sit
+   on one baseline despite the hub being taller than the side nodes */
+.pipe-lbl{
+  position:absolute;left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  font-size:calc(12.4 * var(--us, 1px));
+  font-weight:500;
+  letter-spacing:calc(0.4 * var(--us, 1px));
+  color:#7d7d86;
+}
+.pipe-node .pipe-lbl{top:calc(100% + 21 * var(--us, 1px))}
+.pipe-hub .pipe-lbl{top:calc(100% + 12 * var(--us, 1px))}
+@keyframes pipeBeam{
+  0%{left:-25%;opacity:0}
+  8%{opacity:1}
+  90%{opacity:1}
+  100%{left:100%;opacity:0}
+}
+@keyframes pipeSplash{
+  0%,42%{opacity:0;transform:scale(.4)}
+  48%{opacity:.85;transform:scale(.55)}
+  58%{opacity:.5;transform:scale(1)}
+  70%{opacity:0;transform:scale(1.4)}
+  100%{opacity:0;transform:scale(.4)}
+}
+@keyframes pipeGlowA{
+  0%,6%{opacity:0}
+  12%{opacity:1}
+  22%{opacity:1}
+  30%,100%{opacity:0}
+}
+@keyframes pipeGlowC{
+  0%,55%{opacity:0}
+  62%{opacity:1}
+  72%{opacity:1}
+  80%,100%{opacity:0}
+}
+@media (max-width:860px){
+  .pipe{gap:0;margin-bottom:calc(72 * var(--us, 1px))}
+  .pipe-line{width:calc(80 * var(--us, 1px))}
+}
+@media (max-width:552px){
+  .pipe-node{width:calc(38 * var(--us, 1px));height:calc(38 * var(--us, 1px))}
+  .pipe-node svg{width:calc(17 * var(--us, 1px));height:calc(17 * var(--us, 1px))}
+  .pipe-node::after{inset:calc(-6 * var(--us, 1px))}
+  .pipe-hub{width:calc(52 * var(--us, 1px));height:calc(52 * var(--us, 1px))}
+  .pipe-hub svg{width:calc(23 * var(--us, 1px));height:calc(23 * var(--us, 1px))}
+  .pipe-line{width:calc(46 * var(--us, 1px))}
+  .pipe-lbl{font-size:calc(11.4 * var(--us, 1px))}
+  .pipe-node .pipe-lbl{top:calc(100% + 19 * var(--us, 1px))}
+}
+@media (prefers-reduced-motion:reduce){
+  .pipe-beam,.pipe-beam-glow,.pipe-splash,
+  .pipe-node.a::before,.pipe-node.c::before{animation:none}
+  .pipe-splash{opacity:0}
+}
+
 @media (max-width:1160px){
   :root{--gut:clamp(22px, 5.2vw, 46px)}
   .sect{padding:clamp(66px, 9vw, 96px) 0}
@@ -1482,6 +1650,35 @@ pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px
 <!-- ========================= DEVELOPERS ========================== -->
 <section class="sect" id="developers" aria-labelledby="dev-h">
   <div class="wrap">
+    <!-- setup pipeline: your app -> meridian -> target. pure CSS, no script. -->
+    <div class="pipe">
+      <div class="pipe-track" aria-hidden="true">
+        <div class="pipe-beam-glow"></div><div class="pipe-beam"></div>
+      </div>
+
+      <div class="pipe-node a">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="2.2"/><path d="M8.5 9.5 11 12l-2.5 2.5"/><path d="M13.5 14.5H17"/></svg>
+        <span class="pipe-lbl">Your app</span>
+      </div>
+
+      <div class="pipe-line" aria-hidden="true"></div>
+
+      <div class="pipe-mid">
+        <div class="pipe-splash" aria-hidden="true"></div>
+        <div class="pipe-hub">
+          <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="16"/><ellipse cx="20" cy="20" rx="7.2" ry="16"/><path d="M4 20h32"/></svg>
+          <span class="pipe-lbl">Meridian</span>
+        </div>
+      </div>
+
+      <div class="pipe-line r" aria-hidden="true"></div>
+
+      <div class="pipe-node c">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></svg>
+        <span class="pipe-lbl">Target site</span>
+      </div>
+    </div>
+
     <div class="split">
       <div class="rv">
         <span class="eb">Setup</span>
